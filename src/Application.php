@@ -16,7 +16,7 @@ final class Application {
 
     // Enthält einen String mit dem Standard Kontroller der genutzt wird, wenn der Nutzer keine Anfrage zu einem anderen Kontroller stellt
     // Siehe: sanitize_request_controller
-    const DEFAULT_CONTROLLER        = 'WBD0321\\Controller\\Register';
+    const DEFAULT_CONTROLLER        = 'WBD0321\\Controller\\Home';
     // Enthält einen String mit der Standard Methode die genutzt wird, wenn der Nutzer keine Anfrage zu einer anderen Methode stellt
     // Siehe: sanitize_request_method
     const DEFAULT_CONTROLLER_METHOD = 'index';

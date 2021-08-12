@@ -21,6 +21,7 @@ trait UsersValidation {
      * Überprüfen ob der Nutzername mindestens 4 Zeichen lang ist
      * Überprüfen ob der Nutzername maximal 16 Zeichen lang ist
      * Überprüfen ob der Nutzername nur erlaubte Zeichen enthält
+     * Überprüfen ob der Nutzername bereits in der Datenbank existiert
      *
      * @access  private
      * @param   array       $errors
@@ -51,6 +52,124 @@ trait UsersValidation {
 
         return isset( $errors[ 'username' ] ) === FALSE || count( $errors[ 'username' ] ) === 0;
     }
+
+    /**
+     * Validate Firstname
+     *
+     * Wird von innerhalb der Klasse aufgerufen, deshalb als private deklariert
+     * (private anstatt protected weil es keiner Erben von der Klasse gibt, welche auf die Methode zugriff bräuchten)
+     * Hat einen Boolean als Rückgabewert deshalb return Type 'bool'
+     * Wir verwenden $errors als Referenz und müssen den array daher nicht zurückgeben und mit den hinzugefügten Werten zu arbeiten
+     *
+     * Überprüfen ob der Vorname eingegeben wurde
+     * Überprüfen ob der Vorname mindestens 4 Zeichen lang ist
+     * Überprüfen ob der Vorname maximal 16 Zeichen lang ist
+     * Überprüfen ob der Vorname nur erlaubte Zeichen enthält
+     *
+     * @access  private
+     * @param   array       $errors
+     * @param   string|NULL $firstname
+     * @return  bool
+     */
+    private function validateFirstname( array &$errors, ?string $firstname ) : bool {
+        // Überprüfen ob ein Vorname eingegeben wurde
+        if ( is_null( $firstname ) || empty( $firstname ) ) {
+            $errors[ 'firstname' ][] = 'Please type in a firstname';
+        }
+        // Überprüfen ob der Vorname minimum 4 Zeichen lang ist
+        if ( strlen( $firstname ) < 4 ) {
+            $errors[ 'firstname' ][] = 'Firstname should be minimum 4 characters long';
+        }
+        // Überprüfen ob der Vorname maximal 16 Zeichen lang ist
+        if ( strlen( $firstname ) > 16 ) {
+            $errors[ 'firstname' ][] = 'Firstname should be maximum 16 characters long';
+        }
+        // Überprüfen ob der Vorname Sonderzeichen oder ähnliche verbotene Zeichen beinhaltet
+        if ( preg_match( '/[^a-z_0-9]/i', $firstname ) ) {
+            $errors[ 'firstname' ][] = 'Firstname should only contains alphanumeric characters';
+        }
+
+        return isset( $errors[ 'firstname' ] ) === FALSE || count( $errors[ 'firstname' ] ) === 0;
+    }
+
+    /**
+     * Validate Lastname
+     *
+     * Wird von innerhalb der Klasse aufgerufen, deshalb als private deklariert
+     * (private anstatt protected weil es keiner Erben von der Klasse gibt, welche auf die Methode zugriff bräuchten)
+     * Hat einen Boolean als Rückgabewert deshalb return Type 'bool'
+     * Wir verwenden $errors als Referenz und müssen den array daher nicht zurückgeben und mit den hinzugefügten Werten zu arbeiten
+     *
+     * Überprüfen ob der Nachname eingegeben wurde
+     * Überprüfen ob der Nachname mindestens 4 Zeichen lang ist
+     * Überprüfen ob der Nachname maximal 16 Zeichen lang ist
+     * Überprüfen ob der Nachname nur erlaubte Zeichen enthält
+     *
+     * @access  private
+     * @param   array       $errors
+     * @param   string|NULL $lastname
+     * @return  bool
+     */
+    private function validateLastname( array &$errors, ?string $lastname ) : bool {
+        // Überprüfen ob ein Nachname eingegeben wurde
+        if ( is_null( $lastname ) || empty( $lastname ) ) {
+            $errors[ 'lastname' ][] = 'Please type in a lastname';
+        }
+        // Überprüfen ob der Nachname minimum 4 Zeichen lang ist
+        if ( strlen( $lastname ) < 4 ) {
+            $errors[ 'lastname' ][] = 'Lastname should be minimum 4 characters long';
+        }
+        // Überprüfen ob der Nachname maximal 16 Zeichen lang ist
+        if ( strlen( $lastname ) > 16 ) {
+            $errors[ 'lastname' ][] = 'Lastname should be maximum 16 characters long';
+        }
+        // Überprüfen ob der Nachname Sonderzeichen oder ähnliche verbotene Zeichen beinhaltet
+        if ( preg_match( '/[^a-z_0-9]/i', $lastname ) ) {
+            $errors[ 'lastname' ][] = 'Lastname should only contains alphanumeric characters';
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate Phone Number
+     *
+     * Wird von innerhalb der Klasse aufgerufen, deshalb als private deklariert
+     * (private anstatt protected weil es keiner Erben von der Klasse gibt, welche auf die Methode zugriff bräuchten)
+     * Hat einen Boolean als Rückgabewert deshalb return Type 'bool'
+     * Wir verwenden $errors als Referenz und müssen den array daher nicht zurückgeben und mit den hinzugefügten Werten zu arbeiten
+     *
+     *
+     * @access  private
+     * @param   array       $errors
+     * @param   string|NULL $phoneNumber
+     * @return  bool
+     */
+    private function validatePhoneNumber( array &$errors, ?string $phoneNumber ) : bool {
+
+        return true;
+    }
+
+
+    /**
+     * Validate Mobile Number
+     *
+     * Wird von innerhalb der Klasse aufgerufen, deshalb als private deklariert
+     * (private anstatt protected weil es keiner Erben von der Klasse gibt, welche auf die Methode zugriff bräuchten)
+     * Hat einen Boolean als Rückgabewert deshalb return Type 'bool'
+     * Wir verwenden $errors als Referenz und müssen den array daher nicht zurückgeben und mit den hinzugefügten Werten zu arbeiten
+     *
+     *
+     * @access  private
+     * @param   array       $errors
+     * @param   string|NULL $mobileNumber
+     * @return  bool
+     */
+    private function validateMobileNumber( array &$errors, ?string $mobileNumber ) : bool {
+
+        return isset( $errors[ 'mobileNumber' ] ) === FALSE || count( $errors[ 'mobileNumber' ] ) === 0;
+    }
+
 
     /**
      * Validate Email

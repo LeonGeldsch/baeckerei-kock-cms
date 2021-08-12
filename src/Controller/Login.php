@@ -41,13 +41,15 @@ final class Login extends AbstractController implements IndexController {
         // Überprüfen ob das Formular abgeschickt wurde
         // Ob wir Daten in $_POST haben
         if ( empty( $_POST ) === FALSE && $this->Model->loginUser( $errors ) ) {
-            $this->redirect( 'feed?status=login' );
+            $this->redirect( 'home' );
         }
         else {
             $this->View->errors = $errors;
         }
 
+        $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'login/index' );
+        $this->View->getTemplatePart( 'footer' );
     }
 
     /**
@@ -70,7 +72,9 @@ final class Login extends AbstractController implements IndexController {
             $this->View->errors = $errors;
         }
 
+        $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'login/reset' );
+        $this->View->getTemplatePart( 'footer' );
     }
 
 }

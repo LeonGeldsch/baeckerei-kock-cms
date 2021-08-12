@@ -27,9 +27,9 @@ trait Users {
      */
     private function comparePasswords( array $credentials, string $user_input ) : bool {
         /** @var string $hashedSalt */
-        $hashedSalt = $credentials[ 'salt' ];
+        $hashedSalt = $credentials[ 'userSalt' ];
         /** @var string $hashedPassword */
-        $hashedPassword = $credentials[ 'password' ];
+        $hashedPassword = $credentials[ 'userPassword' ];
 
         return $hashedPassword === $this->createHashedPassword( $user_input, $hashedSalt );
     }
@@ -89,7 +89,7 @@ trait Users {
      */
     private function emailExists( ?string $email ) : bool {
         /** @var string $query */
-        $query = 'SELECT email FROM users WHERE email = :email;';
+        $query = 'SELECT userEmail FROM users WHERE userEmail = :email;';
         /** @var \PDOStatement $statement */
         $statement = $this->Database->prepare( $query );
         $statement->bindValue( ':email', $email );
@@ -113,7 +113,7 @@ trait Users {
      */
     private function getCredentials( string $username ) : array {
         /** @var string $query */
-        $query = 'SELECT id, password, salt FROM users WHERE username = :username;';
+        $query = 'SELECT userId, userPassword, userSalt FROM users WHERE userUsername = :username;';
         /** @var \PDOStatement $statement */
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':username', $username );
@@ -128,7 +128,7 @@ trait Users {
      * @return array
      */
     public function getUserByUsername( string $username ) : ?array {
-        $query = 'SELECT u.id, u.username, u.email, u.registered, f.filename, f.filepath, f.fileuri, f.thumbnails FROM users AS u LEFT JOIN files AS f ON u.avatar = f.id WHERE username = :username;';
+        $query = 'SELECT u.id, u.username, u.email, u.registered, f.filename, f.filepath, f.fileuri, f.thumbnails FROM users AS u LEFT JOIN files AS f ON u.avatar = f.id WHERE userUsername = :username;';
 
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':username', $username );
@@ -154,7 +154,7 @@ trait Users {
      */
     private function usernameExists( ?string $username ) : bool {
         /** @var string $query */
-        $query = 'SELECT username FROM users WHERE username = :username;';
+        $query = 'SELECT userUsername FROM users WHERE userUsername = :username;';
         /** @var \PDOStatement $statement */
         $statement = $this->Database->prepare( $query );
         $statement->bindValue( ':username', $username );

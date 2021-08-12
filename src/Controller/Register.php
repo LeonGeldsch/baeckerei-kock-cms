@@ -46,6 +46,9 @@ final class Register extends AbstractController implements IndexController {
 
         // Überprüfen ob das Formular abgeschickt wurde
         // Ob wir Daten in $_POST haben
+
+        //print_r($_POST);
+
         if ( empty( $_POST ) === FALSE && $this->Model->registerUser( $errors ) ) {
             $this->redirect( '/login?status=registered' );
         }
@@ -53,7 +56,11 @@ final class Register extends AbstractController implements IndexController {
             $this->View->errors = $errors;
         }
 
+        $this->View->title = 'Register';
+
+        $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'register/index' );
+        $this->View->getTemplatePart( 'footer' );
     }
 
 }

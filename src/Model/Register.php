@@ -32,6 +32,10 @@ final class Register extends AbstractModel {
      * @return  bool
      */
     public function registerUser( array &$errors ) : bool {
+        /** @var string|NULL $firstname */
+        $firstname = filter_input( INPUT_POST, 'firstname' );
+        /** @var string|NULL $lastname */
+        $lastname = filter_input( INPUT_POST, 'lastname' );
         /** @var string|NULL $username */
         $username = filter_input( INPUT_POST, 'username' );
         /** @var string|NULL $email */
@@ -40,34 +44,56 @@ final class Register extends AbstractModel {
         $password = filter_input( INPUT_POST, 'password' );
         /** @var string|NULL $password_repeat */
         $password_repeat = filter_input( INPUT_POST, 'password_repeat' );
+        /** @var string|NULL $phone */
+        $phoneNumber = filter_input( INPUT_POST, 'phoneNumber' );
+        /** @var string|NULL $mobile */
+        $mobileNumber = filter_input( INPUT_POST, 'mobileNumber' );
+        /** @var string|NULL $userlevel */
+        $userLevel = 'regular';
+
+
+
 
         /** @var bool $validate_username */
-        $validate_username = $this->validateUsername( $errors, $username );
+        $validateFirstname = $this->validateFirstname( $errors, $firstname );
+        /** @var bool $validate_username */
+        $validateLastname = $this->validateLastname( $errors, $lastname );
+        /** @var bool $validate_username */
+        $validateUsername = $this->validateUsername( $errors, $username );
         /** @var bool $validate_email */
-        $validate_email = $this->validateEmail( $errors, $email );
+        $validateEmail = $this->validateEmail( $errors, $email );
         /** @var bool $validate_password */
-        $validate_password = $this->validatePassword( $errors, $username, $password, $password_repeat );
+        $validatePassword = $this->validatePassword( $errors, $username, $password, $password_repeat );
+        /** @var bool $validate_phone */
+        $validatePhoneNumber = $this->validatePhoneNumber( $errors, $phoneNumber );
+        /** @var bool $validate_phone */
+        $validateMobileNumber = $this->validateMobileNumber( $errors, $mobileNumber );
 
-        if ( $validate_username && $validate_email && $validate_password ) {
-            /** @var array|NULL $avatar */
-            $avatar = $this->uploadImage( $errors,'avatar' );
+
+        if ( $validateFirstname && $validateLastname && $validateUsername && $validateEmail && $validatePassword && $validatePhoneNumber && $validateMobileNumber ) {
+
+            //echo "validated!";
             /** @var string $hashedSalt */
             $hashedSalt = $this->createHashedSalt();
             /** @var string $hashedPassword */
             $hashedPassword = $this->createHashedPassword( $password, $hashedSalt );
 
             /** @var string $statement */
-            $statement = 'INSERT INTO users ( username, email, password, salt, registered, avatar ) VALUES ( :username, :email, :password, :salt, :registered, :avatar );';
+            $statement = 'INSERT INTO users ( userFirstname, userLastname, userUsername, userEmail, userPassword, userSalt, userRegisterTime, userPhoneNumber, userMobileNumber, userLevel ) VALUES ( :firstname, :lastname, :username, :email, :password, :salt, :registerTime, :phoneNumber, :mobileNumber, :userLevel );';
             /** @var \PDOStatement $query */
             $query = $this->Database->prepare( $statement );
+            $query->bindValue( ':firstname', $firstname );
+            $query->bindValue( ':lastname', $lastname );
             $query->bindValue( ':username', $username );
             $query->bindValue( ':email', $email );
             $query->bindValue( ':password', $hashedPassword );
             $query->bindValue( ':salt', $hashedSalt );
-            $query->bindValue( ':registered', $_SERVER[ 'REQUEST_TIME' ] );
-            $query->bindValue( ':avatar', $avatar );
+            $query->bindValue( ':registerTime', $_SERVER[ 'REQUEST_TIME' ] );
+            $query->bindValue( ':phoneNumber', $phoneNumber );
+            $query->bindValue( ':mobileNumber', $mobileNumber );
+            $query->bindValue( ':userLevel', $userLevel );
             $query->execute();
-
+            
             return $query->rowCount() > 0;
         }
         else {

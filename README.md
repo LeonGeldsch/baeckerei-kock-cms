@@ -1,4 +1,4 @@
-# SAE-WBD0321-5100-CMS
+# Baeckerei-Kock-CMS
 
 ## Ordnerstuktur
 - **/public** - *Unser Server nutzt den Public Folder als Document Root (Für den Endnutzer erreichbarer Bereich)*

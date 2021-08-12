@@ -29,7 +29,7 @@ final class Login extends AbstractModel {
             $hashed_salt = $this->createHashedSalt();
             $hashed_password = $this->createHashedPassword( $new_password, $hashed_salt );
 
-            $query = 'UPDATE users SET password = :password, salt = :salt WHERE email = :email;';
+            $query = 'UPDATE users SET userPassword = :password, userSalt = :salt WHERE userEmail = :email;';
 
             $statement = $this->Database->prepare( $query );
             $statement->bindValue( ':password', $hashed_password );

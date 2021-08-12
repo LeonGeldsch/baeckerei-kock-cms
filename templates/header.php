@@ -28,13 +28,22 @@
                 <nav id="masthead__navigation" class="navigation">
                     <ul class="navigation__list">
                         <li class="navigation__list-item">
-                            <?php navigation_link( '/feed', 'Feed' );  ?>
+                            <?php navigation_link( '/products/buns', 'Buns' );  ?>
                         </li>
                         <li class="navigation__list-item">
-                            <?php navigation_link( '/user', 'User' );  ?>
+                            <?php navigation_link( '/products/bread', 'Bread' );  ?>
                         </li>
                         <li class="navigation__list-item">
-                            <?php navigation_link( '/logout', 'Logout' );  ?>
+                            <?php navigation_link( '/products/cake', 'Cake' );  ?>
+                        </li>
+                        <li class="navigation__list-item">
+                            <?php navigation_link( '/products/', 'All categories' );  ?>
+                        </li>
+                        <li class="navigation__list-item">
+                            <?php navigation_link( '/login', 'Login' );  ?>
+                        </li>
+                        <li class="navigation__list-item">
+                            <?php navigation_link( '/register', 'Register' );  ?>
                         </li>
                     </ul>
                 </nav><!-- /#masthead__navigation -->

@@ -1,4 +1,5 @@
 
+            <p>footer</p>
             </div><!-- /#content__inner -->
         </main><!-- /#content -->
 
