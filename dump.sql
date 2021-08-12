@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 02, 2021 at 09:39 PM
--- Server version: 10.5.10-MariaDB-1:10.5.10+maria~focal
--- PHP Version: 7.4.20
+-- Erstellungszeit: 12. Aug 2021 um 23:54
+-- Server-Version: 10.5.10-MariaDB-1:10.5.10+maria~focal
+-- PHP-Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,240 +18,211 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `wbd0321_5100_cms`
+-- Datenbank: `baeckerei-kock-cms`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
---
-
-CREATE TABLE `comments` (
-                            `id` int(11) NOT NULL,
-                            `post_id` int(11) NOT NULL,
-                            `user_id` int(11) NOT NULL,
-                            `comment` varchar(400) NOT NULL,
-                            `timestamp` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `timestamp`) VALUES
-(7, 23, 7, 'Hallo zurück, ich bin der erste Kommentar', 1627405502),
-(8, 23, 7, 'Hallo zurück, ich bin der erste Kommentar', 1627405506),
-(9, 23, 7, 'Hallo zurück, ich bin der erste Kommentar', 1627405601),
-(10, 24, 7, 'Hallo ich bin ein Super Kommentar!', 1627406847),
-(11, 24, 7, 'Hallo ich bin ein Super Kommentar!', 1627406941),
-(12, 23, 9, 'Hi ich bin der neue hier im Bunde!', 1627407417),
-(13, 28, 9, 'asdasdkjhskj3jk2h34jk2h34kj2h34kjh23kj4h234', 1627409987),
-(14, 28, 9, 'asdasdkjhskj3jk2h34jk2h34kj2h34kjh23kj4h234', 1627410012);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files`
+-- Tabellenstruktur für Tabelle `files`
 --
 
 CREATE TABLE `files` (
-                         `id` int(11) NOT NULL,
-                         `type` char(128) NOT NULL,
-                         `filename` char(128) NOT NULL,
-                         `filepath` varchar(1024) NOT NULL,
-                         `fileuri` varchar(1024) NOT NULL,
-                         `thumbnails` text NOT NULL
+  `fileId` int(11) NOT NULL,
+  `fileName` varchar(255) NOT NULL,
+  `filePath` varchar(255) NOT NULL,
+  `fileType` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `files`
---
-
-INSERT INTO `files` (`id`, `type`, `filename`, `filepath`, `fileuri`, `thumbnails`) VALUES
-(5, 'image/jpeg', 'avatar-1627397908-8686.jpeg', '/var/www/html/wbd0321-5100/wbd5100_cms/public/uploads/2021/07/27/avatar-1627397908-8686.jpeg', '/uploads/2021/07/27/avatar-1627397908-8686.jpeg', 's:507:\"{\"thumbnail\":{\"filename\":\"avatar-1627397987-6457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-thumbnail.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-thumbnail.jpeg\"},\"full-hd\":{\"filename\":\"avatar-1627397987-6457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-full-hd.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-full-hd.jpeg\"}}\";'),
-(6, 'image/jpeg', 'avatar-1627397987-6457.jpeg', '/var/www/html/wbd0321-5100/wbd5100_cms/public/uploads/2021/07/27/avatar-1627397987-6457.jpeg', '/uploads/2021/07/27/avatar-1627397987-6457.jpeg', 's:507:\"{\"thumbnail\":{\"filename\":\"avatar-1627397987-6457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-thumbnail.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-thumbnail.jpeg\"},\"full-hd\":{\"filename\":\"avatar-1627397987-6457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-full-hd.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar-1627397987-6457-full-hd.jpeg\"}}\";'),
-(7, 'image/jpeg', 'avatar_-1627407402-1457.jpeg', '/var/www/html/wbd0321-5100/wbd5100_cms/public/uploads/2021/07/27/avatar_-1627407402-1457.jpeg', '/uploads/2021/07/27/avatar_-1627407402-1457.jpeg', 's:513:\"{\"thumbnail\":{\"filename\":\"avatar_-1627407402-1457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar_-1627407402-1457-thumbnail.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar_-1627407402-1457-thumbnail.jpeg\"},\"full-hd\":{\"filename\":\"avatar_-1627407402-1457-key\",\"filepath\":\"\\/var\\/www\\/html\\/wbd0321-5100\\/wbd5100_cms\\/public\\/uploads\\/2021\\/07\\/27\\/avatar_-1627407402-1457-full-hd.jpeg\",\"fileuri\":\"\\/uploads\\/2021\\/07\\/27\\/avatar_-1627407402-1457-full-hd.jpeg\"}}\";');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes`
+-- Tabellenstruktur für Tabelle `orders`
 --
 
-CREATE TABLE `likes` (
-                         `id` int(11) NOT NULL,
-                         `post_id` int(11) NOT NULL,
-                         `user_id` int(11) NOT NULL
+CREATE TABLE `orders` (
+  `orderId` int(11) NOT NULL,
+  `orderUserId` int(11) NOT NULL,
+  `orderStatus` varchar(255) NOT NULL,
+  `orderTimestamp` int(11) NOT NULL,
+  `orderPickupTime` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `likes`
+-- Daten für Tabelle `orders`
 --
 
-INSERT INTO `likes` (`id`, `post_id`, `user_id`) VALUES
-(20, 28, 9),
-(30, 26, 7),
-(31, 24, 7),
-(32, 23, 7),
-(33, 28, 7),
-(35, 29, 7);
+INSERT INTO `orders` (`orderId`, `orderUserId`, `orderStatus`, `orderTimestamp`, `orderPickupTime`) VALUES
+(1, 4, 'Done', 123213, 123213213);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Tabellenstruktur für Tabelle `order_items`
 --
 
-CREATE TABLE `posts` (
-                         `id` int(11) NOT NULL,
-                         `user_id` int(11) NOT NULL,
-                         `message` varchar(400) NOT NULL,
-                         `timestamp` int(11) NOT NULL
+CREATE TABLE `order_items` (
+  `orderitemId` int(11) NOT NULL,
+  `orderitemProductId` int(11) NOT NULL,
+  `orderitemOrderId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id`, `user_id`, `message`, `timestamp`) VALUES
-(23, 7, 'Hallo Welt, ich bin der erste Beitrag!', 1627405492),
-(24, 7, 'Hallo Welt, ich bin der zweite Beitrag!', 1627406108),
-(25, 9, 'Ein neuer Testbeitrag, um zu überprüfen das alles läuft!', 1627409044),
-(26, 9, 'Ein neuer Testbeitrag, um zu überprüfen das alles läuft!', 1627409048),
-(27, 9, 'Ein neuer Testbeitrag, um zu überprüfen das alles läuft!', 1627409056),
-(28, 9, 'Ein weiterer Testbeitrag', 1627409293),
-(29, 7, 'Ich bin ein aktueller Beitrag, für den Feed', 1627929826);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reposts`
+-- Tabellenstruktur für Tabelle `productCategories`
 --
 
-CREATE TABLE `reposts` (
-                           `id` int(11) NOT NULL,
-                           `post_id` int(11) NOT NULL,
-                           `user_id` int(11) NOT NULL
+CREATE TABLE `productCategories` (
+  `categoryId` int(11) NOT NULL,
+  `categoryName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `reposts`
+-- Daten für Tabelle `productCategories`
 --
 
-INSERT INTO `reposts` (`id`, `post_id`, `user_id`) VALUES
-(1, 28, 7),
-(2, 27, 7),
-(3, 26, 7),
-(4, 25, 7),
-(5, 29, 7);
+INSERT INTO `productCategories` (`categoryId`, `categoryName`) VALUES
+(1, 'bread'),
+(2, 'buns'),
+(3, 'cake');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tabellenstruktur für Tabelle `products`
+--
+
+CREATE TABLE `products` (
+  `productId` int(11) NOT NULL,
+  `productName` varchar(255) NOT NULL,
+  `productPrice` float NOT NULL,
+  `productDescription` text NOT NULL,
+  `productActive` tinyint(1) NOT NULL,
+  `productImageId` int(11) NOT NULL,
+  `productCategory` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `products`
+--
+
+INSERT INTO `products` (`productId`, `productName`, `productPrice`, `productDescription`, `productActive`, `productImageId`, `productCategory`) VALUES
+(1, 'Ofenfrische', 0.44, 'Ofenfrische', 1, 1, 'buns'),
+(2, 'WM-Brötchen', 0.68, 'WM-Brötchen', 1, 2, 'buns'),
+(3, 'WM-Brot', 3.6, 'WM-Brot', 1, 3, 'bread');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `users`
 --
 
 CREATE TABLE `users` (
-                         `id` int(11) NOT NULL,
-                         `username` char(16) NOT NULL,
-                         `email` char(255) NOT NULL,
-                         `password` char(128) NOT NULL,
-                         `salt` char(128) NOT NULL,
-                         `registered` int(11) NOT NULL,
-                         `avatar` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  `userFirstname` varchar(255) NOT NULL,
+  `userLastname` varchar(255) NOT NULL,
+  `userUsername` varchar(255) NOT NULL,
+  `userEmail` varchar(255) NOT NULL,
+  `userPassword` varchar(255) NOT NULL,
+  `userPhoneNumber` varchar(255) DEFAULT NULL,
+  `userMobileNumber` varchar(255) DEFAULT NULL,
+  `userLevel` varchar(255) NOT NULL,
+  `userSalt` char(128) NOT NULL,
+  `userRegisterTime` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `registered`, `avatar`) VALUES
-(7, 'admin', 'admin@sae.edu', '841ec49f077917ca7bbe27655c290b1dd33e6b5a72077eeaf9cec6f5cfa5104ed8b5a289549f494c6607cfbf5d4b62c3fdee6e840902b72b9d40b6866eb6c4f6', 'afb5d21230ab220944142d56031558c9d2e07cc2c19121e4c750180f575b77bc89502424f3e1b039fe932dca9674ec669892a5b13201de24927bf58d02d1c2e3', 1627397908, 5),
-(8, 'test', 'test@sae.edu', '8be6411043c07828c8e30ad3083327fad4e2be0cad979fd50848cb319a6c07a9cfd42e00cdb10ae7edbfc7a042a4d34fff6cbb9952b755acf2b6553c72206b8a', 'df7aec6fbc72c67dc1066a5aab653c02640fe82ac6d17433236f3a33019d5f38230c5639966bc2f9920d34cee42e885fbc2e9188737f0393b3c87be8529b4795', 1627397987, 6),
-(9, 'avatar', 'avatar@sae.edu', '6e0b03c1bef05a88d0a79b768b785047a469b4cd0d60ee5773f21fa3ab954cd6142524a55b58abfafbdd52c25a1477dbe700fe5ce4143cc789f798fd0a1a4364', '613851204fdf4cef1d9324c1de0a10bdd1add2d588ef3d72dce3fad195773038fb4cb84593a8489f0d7f948724283e47f460b92dd8a56267eb337be660bfcbe6', 1627407402, 7);
+INSERT INTO `users` (`userId`, `userFirstname`, `userLastname`, `userUsername`, `userEmail`, `userPassword`, `userPhoneNumber`, `userMobileNumber`, `userLevel`, `userSalt`, `userRegisterTime`) VALUES
+(4, 'Leon', 'Geldschlaeger', 'LeonGeldsch', 'leon.geldschlaeger@gmail.com', 'd5b7cf0fb306efb9a429ce1848dced6e4b597a0253896ab451cf2db0c45863bf4f115e103330d2494d195fb1b0f6e30f39fec15197e13a06047b0c00b5fca176', '', '', 'regular', '4d77d1333d70c509b83818372faef6d5f04e64e0ffb2f0b6275dc02ae2e0bc090020e4aeeee185d4c21058911e596b8738fb54163f61b8ca5062198b6313c9ca', 1628792615);
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-    ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `files`
+-- Indizes für die Tabelle `files`
 --
 ALTER TABLE `files`
-    ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`fileId`);
 
 --
--- Indexes for table `likes`
+-- Indizes für die Tabelle `orders`
 --
-ALTER TABLE `likes`
-    ADD PRIMARY KEY (`id`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orderId`);
 
 --
--- Indexes for table `posts`
+-- Indizes für die Tabelle `order_items`
 --
-ALTER TABLE `posts`
-    ADD PRIMARY KEY (`id`);
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`orderitemId`);
 
 --
--- Indexes for table `reposts`
+-- Indizes für die Tabelle `productCategories`
 --
-ALTER TABLE `reposts`
-    ADD PRIMARY KEY (`id`);
+ALTER TABLE `productCategories`
+  ADD PRIMARY KEY (`categoryId`);
 
 --
--- Indexes for table `users`
+-- Indizes für die Tabelle `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`productId`);
+
+--
+-- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
-    ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `USERNAME` (`username`),
-  ADD UNIQUE KEY `EMAIL` (`email`);
+  ADD PRIMARY KEY (`userId`),
+  ADD UNIQUE KEY `userUsername` (`userUsername`),
+  ADD UNIQUE KEY `userEmail` (`userEmail`),
+  ADD UNIQUE KEY `userUsername_4` (`userUsername`),
+  ADD KEY `userUsername_2` (`userUsername`),
+  ADD KEY `userUsername_3` (`userUsername`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `files`
+-- AUTO_INCREMENT für Tabelle `files`
 --
 ALTER TABLE `files`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `fileId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `likes`
+-- AUTO_INCREMENT für Tabelle `orders`
 --
-ALTER TABLE `likes`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+ALTER TABLE `orders`
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT für Tabelle `order_items`
 --
-ALTER TABLE `posts`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+ALTER TABLE `order_items`
+  MODIFY `orderitemId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `reposts`
+-- AUTO_INCREMENT für Tabelle `productCategories`
 --
-ALTER TABLE `reposts`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `productCategories`
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT für Tabelle `products`
+--
+ALTER TABLE `products`
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
