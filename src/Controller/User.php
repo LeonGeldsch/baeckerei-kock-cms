@@ -6,7 +6,7 @@ use WBD0321\Controller as AbstractController;
 use WBD0321\Controller\Interfaces\IndexController;
 use WBD0321\Session;
 use WBD0321\Model\Users as UsersModel;
-use WBD0321\Model\Posts as PostsModel;
+use WBD0321\Model\Orders as OrdersModel;
 use WBD0321\View\Script;
 use WBD0321\View\Stylesheet;
 
@@ -21,9 +21,8 @@ use WBD0321\View\Stylesheet;
  */
 final class User extends AbstractController implements IndexController {
 
-    private ?PostsModel $PostsModel = NULL;
-
     private ?UsersModel $UsersModel = NULL;
+    private ?OrdersModel $OrdersModel = NULL;
 
     /**
      * Constructor
@@ -32,7 +31,7 @@ final class User extends AbstractController implements IndexController {
         parent::__construct();
 
         $this->UsersModel = new UsersModel();
-        $this->PostsModel = new PostsModel();
+        $this->OrdersModel = new OrdersModel();
 
         // Nutzerlogin überprüfen
         // Alle Methoden des Kontrollers sind nur für eingeloggte Nutzer erreichbar
@@ -53,7 +52,7 @@ final class User extends AbstractController implements IndexController {
         /** @var string $session_username */
         $session_username = Session::get( 'login_username' );
 
-        $this->profile( $session_username );
+        $this->orders();
     }
 
     /**
@@ -103,6 +102,7 @@ final class User extends AbstractController implements IndexController {
         $this->View->getTemplatePart( 'footer' );
     }
 
+
     /**
      * View
      *
@@ -114,22 +114,22 @@ final class User extends AbstractController implements IndexController {
      * @param   string|NULL     $username
      * @return  void
      */
-    public function profile( ?string $username = NULL ) : void {
-        $userData = $this->UsersModel->getUserByUsername( $username );
+    public function orders() : void {
+        $userOrders = $this->OrdersModel->getOrdersById( Session::get( 'login_id' ) );
 
-        if ( $userData === NULL ) {
+        if ( $userOrders === NULL ) {
             exit( '404 - Page not Found!' );
         }
 
         // Benutzerprofil darstellen
 
-        $this->View->profile = $userData;
-
-        $this->View->posts = $this->PostsModel->getAllPostsByUsername( $username );
+        $this->View->orders = $userOrders;
 
         $this->View->getTemplatePart( 'header' );
-        $this->View->getTemplatePart( 'user/profile' );
+        $this->View->getTemplatePart( 'user/orders' );
         $this->View->getTemplatePart( 'footer' );
     }
+
+
 
 }

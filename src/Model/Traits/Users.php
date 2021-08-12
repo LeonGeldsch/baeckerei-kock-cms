@@ -128,7 +128,7 @@ trait Users {
      * @return array
      */
     public function getUserByUsername( string $username ) : ?array {
-        $query = 'SELECT u.id, u.username, u.email, u.registered, f.filename, f.filepath, f.fileuri, f.thumbnails FROM users AS u LEFT JOIN files AS f ON u.avatar = f.id WHERE userUsername = :username;';
+        $query = 'SELECT userId, userUsername, userEmail, userRegisterTime FROM users WHERE userUsername = :username;';
 
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':username', $username );
