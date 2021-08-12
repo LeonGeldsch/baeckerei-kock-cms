@@ -1,0 +1,5 @@
+# IntellIJ IDEA Files
+/.idea
+*.iml
+
+/vendor/

@@ -1,0 +1,19 @@
+{
+    "name": "johninamillion/sae-wbd0321-5100-cms",
+    "description": "PHP OOP Content Management System",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "johninamillion",
+            "email": "johninamio@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WBD0321\\": "src"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.5"
+    }
+}
