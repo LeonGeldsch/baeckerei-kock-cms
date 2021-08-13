@@ -7,3 +7,4 @@
         </li>
     <?php endforeach ?>
 </ul>
+<button>Confirm Order</button>

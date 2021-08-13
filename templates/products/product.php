@@ -22,7 +22,7 @@
 
             let requestData = {'itemId': allProductIds[i].textContent, 'itemAmount': allAmountInputs[i].value, 'itemName': allProductNames[i].textContent};
 
-            ajax.post('/cart/addtocart', requestData, callbackFunction, true);
+            ajax.post('/cart/updatecart', requestData, callbackFunction, true);
         });
     }
 

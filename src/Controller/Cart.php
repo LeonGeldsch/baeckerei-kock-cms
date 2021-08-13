@@ -66,71 +66,52 @@ final class Cart extends AbstractController implements IndexController {
     }
 
 
-    public function addToCart() : void {
+    public function updateCart() : void {
 
         $itemId = $_POST['itemId'];
         $itemAmount = $_POST['itemAmount'];
+
+        if (!$this->ProductsModel->productExists($itemId)) {
+            echo "Product doesn't exist";
+            return;
+        }
+
+        if ($itemAmount < -1000) {
+            echo "Amount to small";
+            return;
+        }
+
+        if ($itemAmount > 1000) {
+            echo "Amount too large";
+            return;
+        }
+
         $itemName =  $this->ProductsModel->getProductNameById( $itemId );
-
         $cartItemExist = $this->cartItemExists($itemId);
 
-        if ( !is_null( $itemId ) && !is_null( $itemAmount ) ) {
+        $newItem = array( 'itemId' => $itemId, 'itemAmount' => $itemAmount, 'itemName' => $itemName );
+        $cart = Session::get( 'cart' ) ?: [];
 
-            
-            $newItem = array( 'itemId' => $itemId, 'itemAmount' => $itemAmount, 'itemName' => $itemName);
+        if ($cartItemExist) {
+            $oldAmount = $this->getItemAmount( $itemId );
+            $newAmount = $oldAmount + $itemAmount;
 
-            $cart = Session::get( 'cart' ) ?: [];
-    
-
-            if ($cartItemExist) {
-                $oldAmount = $this->getItemAmount( $itemId );
-                $newAmount = $oldAmount + $itemAmount;
-                
-                $this->changeItemAmount($itemId, $newAmount);
-
-            } else {
-                array_push( $cart, $newItem );
-        
-                Session::set( 'cart', $cart );
-    
-                $cart = Session::get( 'cart' );
-    
+            if ($newAmount < 0) {
+                $newAmount = 0;
             }
-
-            $cart = Session::get( 'cart' );
-            $cartJson = json_encode($cart);
-            echo $cartJson;
-        }
-    }
-
-
-    public function removeFromCart() : void {
-
-        $itemId = $_POST['itemId'];
-        $itemAmount = $_POST['itemAmount'];
-
-        $cartItemExist = $this->cartItemExists($itemId);
-
-        if ( !is_null( $itemId ) && !is_null( $itemAmount ) ) {
-
             
-            $newItem = array( 'itemId' => $itemId, 'itemAmount' => $itemAmount);
-
-            $cart = Session::get( 'cart' ) ?: [];
-    
-
-            if ($cartItemExist) {
-                $oldAmount = $this->getItemAmount( $itemId );
-                $newAmount = $oldAmount - $itemAmount;
-                
-                $this->changeItemAmount($itemId, $newAmount);
+            $this->changeItemAmount( $itemId, $newAmount );
+        } else {
+            if ($itemAmount < 0) {
+                $newItem['itemAmount'] = 0;
             }
-
+            array_push( $cart, $newItem );
+            Session::set( 'cart', $cart );
             $cart = Session::get( 'cart' );
-            $cartJson = json_encode($cart);
-            echo $cartJson;
         }
+        $cart = Session::get( 'cart' );
+        $cartJson = json_encode( $cart );
+        echo $cartJson;
+
     }
-
-
 }
