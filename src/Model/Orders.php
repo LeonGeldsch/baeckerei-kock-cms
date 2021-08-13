@@ -25,7 +25,7 @@ final class Orders extends AbstractModel {
     }
 
 
-    public function addOrder( int $userId, int $pickupTime) : bool {
+    public function addOrder( int $userId, int $pickupTime, array $orderItems ) : ?array {
         
         $status = 'in progress';
         $timestamp = $_SERVER[ 'REQUEST_TIME' ];
@@ -38,11 +38,29 @@ final class Orders extends AbstractModel {
         $query->bindValue( ':pickupTime', $pickupTime );
         $query->execute();
 
+        print_r($statement->fetchAll( \PDO::FETCH_ASSOC ));
+
+
+
+        return $statement->fetchAll( \PDO::FETCH_ASSOC );
+    }
+
+    private function addOrderItems( int $orderId, array $orderItems ) : ?array {
+        
+        $statement = 'INSERT INTO orders ( orderUserId, orderStatus, orderTimestamp, orderPickupTime ) VALUES ( :userId, :status, :timestamp, :pickupTime );';
+        $query = $this->Database->prepare( $statement );
+        $query->bindValue( ':userId', $userId );
+        $query->bindValue( ':status', $status );
+        $query->bindValue( ':timestamp', $timestamp );
+        $query->bindValue( ':pickupTime', $pickupTime );
+        $query->execute();
+
         
 
 
 
-        return true;
+        return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
+
 
 }

@@ -21,6 +21,7 @@ final class Products extends AbstractController implements IndexController {
         $this->ProductsModel = new ProductsModel();
     }
 
+
     public function index() : void {
         /** @var array $errors */
         $errors = [];

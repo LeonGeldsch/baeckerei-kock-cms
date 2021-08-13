@@ -131,5 +131,12 @@ final class User extends AbstractController implements IndexController {
     }
 
 
+    public function addOrder( int $pickupTime, array $orderItems ) : void {
+        
+        if ( empty( $_POST ) === FALSE && $this->Model->addOrder( $errors ) ) {
+            $this->redirect( '/orders?status=success' );
+        }
+
+    }
 
 }

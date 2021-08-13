@@ -31,4 +31,13 @@ final class Products extends AbstractModel {
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
 
+    public function getProductNameById( ?int $productId ) : ?string {
+        $query = 'SELECT productName FROM products WHERE productId = :productId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':productId', $productId);
+        $statement->execute();
+
+        return $statement->fetchAll( \PDO::FETCH_ASSOC )[0]['productName'];
+    }
+
 }
