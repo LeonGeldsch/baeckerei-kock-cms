@@ -15,6 +15,10 @@ use WBD0321\Session;
  */
 final class Orders extends AbstractModel {
 
+    private function getAllOrderItems( int $orderId ) {
+
+    }
+
     public function getOrdersById( int $userId ) : ?array {
         $query = 'SELECT * FROM orders WHERE orderUserId = :userId;';
         $statement = $this->Database->prepare( $query );
@@ -25,7 +29,7 @@ final class Orders extends AbstractModel {
     }
 
 
-    public function addOrder( int $userId, int $pickupTime, array $orderItems ) : ?array {
+    public function addOrder( int $userId, int $pickupTime ) : ?array {
         
         $status = 'in progress';
         $timestamp = $_SERVER[ 'REQUEST_TIME' ];
@@ -38,29 +42,27 @@ final class Orders extends AbstractModel {
         $query->bindValue( ':pickupTime', $pickupTime );
         $query->execute();
 
-        print_r($statement->fetchAll( \PDO::FETCH_ASSOC ));
+        $return = $query->fetchAll( \PDO::FETCH_ASSOC );
 
+        print_r($return);
 
-
-        return $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return $query->fetchAll( \PDO::FETCH_ASSOC );
     }
 
+    /*
     private function addOrderItems( int $orderId, array $orderItems ) : ?array {
+
+        $return = [];
+
+        foreach ($orderItems as $orderItem) {
+
+            $this
+
+            array_merge($return, $query->fetchAll( \PDO::FETCH_ASSOC ));
+        }
         
-        $statement = 'INSERT INTO orders ( orderUserId, orderStatus, orderTimestamp, orderPickupTime ) VALUES ( :userId, :status, :timestamp, :pickupTime );';
-        $query = $this->Database->prepare( $statement );
-        $query->bindValue( ':userId', $userId );
-        $query->bindValue( ':status', $status );
-        $query->bindValue( ':timestamp', $timestamp );
-        $query->bindValue( ':pickupTime', $pickupTime );
-        $query->execute();
-
-        
-
-
-
-        return $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return $return;
     }
-
+    */
 
 }

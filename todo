@@ -2,3 +2,5 @@
 - Fix product categories and products (create join)
 - Fix anchortag in nav (parent controller lights up aswell)
 - Fix phone and mobile validation
+- Swap $statement and $query
+- validate order pickupTime

@@ -8,6 +8,8 @@ use WBD0321\Session;
 use WBD0321\View\Script;
 use WBD0321\View\Stylesheet;
 use WBD0321\Model\Products as ProductsModel;
+use WBD0321\Model\Orders as OrdersModel;
+use WBD0321\Model\OrderItems as OrderItemsModel;
 
 
 final class Cart extends AbstractController implements IndexController {
@@ -16,6 +18,8 @@ final class Cart extends AbstractController implements IndexController {
         parent::__construct();
 
         $this->ProductsModel = new ProductsModel();
+        $this->OrdersModel = new OrdersModel();
+        $this->OrderItemsModel = new OrderItemsModel();
     }
 
     public function index() : void {
@@ -63,6 +67,34 @@ final class Cart extends AbstractController implements IndexController {
             }
         }
         Session::set( 'cart', $cart );
+    }
+
+
+    public function buyCartItems() : void {
+
+        if ( null !== Session::get( 'login_id' )) {
+            
+            $pickupTime = $_POST['pickupTime'];
+    
+    
+            $cart = Session::get( 'cart' );
+            $userId = Session::get( 'login_id' );
+    
+            $orderId = $this->OrdersModel->addOrder( $userId, $pickupTime );
+    
+            for ($i=0; $i < count($_POST) - 1; $i++) { 
+                # code...
+            }
+    
+    
+            print_r($orderId);
+
+        } else {
+            // must be logged in to buy items!
+        }
+
+
+
     }
 
 

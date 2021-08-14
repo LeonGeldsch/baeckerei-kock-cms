@@ -1,3 +1,4 @@
+<!--
 <ul>
     <?php foreach( $this->items as $item ) : ?>
         <li>
@@ -8,3 +9,14 @@
     <?php endforeach ?>
 </ul>
 <button>Confirm Order</button>
+-->
+
+<form action="/cart/buycartitems" method="POST">
+    <?php foreach( $this->items as $index => $item ) : ?>
+
+        <input type="text" name="<?= $item[ 'itemId' ] ?>" value="<?= $item['itemAmount'] ?>">
+
+    <?php endforeach ?>
+    <input type="number" name="pickupTime" id="pickupTime" value="123123">
+    <button type="submit">Confirm Order</button>
+</form>

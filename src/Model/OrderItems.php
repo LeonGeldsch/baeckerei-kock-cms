@@ -15,7 +15,7 @@ use WBD0321\Model as AbstractModel;
 final class OrderItems extends AbstractModel {
 
     public function getOrderItemsByOrderId( int $orderId ) : ?array {
-        $query = 'SELECT * FROM orderItems WHERE orderitemOrderId = :orderId;';
+        $query = 'SELECT * FROM orderItems WHERE orderItemOrderId = :orderId;';
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':orderId', $orderId);
         $statement->execute();
@@ -23,24 +23,25 @@ final class OrderItems extends AbstractModel {
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
 
-    public function addOrderItem( int $orderId, int $itemId ) : ?array {
-        $query = 'INSERT INTO orderItems ( orderitemProductId, orderitemOrderId ) VALUES ( :itemId, :orderId );';
+    public function addOrderItem( int $orderId, int $productId, int $amount ) : ?array {
+        $query = 'INSERT INTO orderItems ( orderItemOrderId, orderItemProductId, orderItemAmount ) VALUES ( :orderItemOrderId, :orderItemProductId, :orderItemAmount );';
         $statement = $this->Database->prepare( $query );
-        $statement->bindParam( ':itemId', $itemId);
-        $statement->bindParam( ':orderId', $orderId);
+        $statement->bindParam( ':orderItemOrderId', $orderId);
+        $statement->bindParam( ':orderItemProductId', $productId);
+        $statement->bindParam( ':orderItemAmount', $amount);
         $statement->execute();
 
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
 
-    public function removeOrderItemByProductAndOrderId( int $orderId, int $productId ) : ?array {
+    public function removeOrderItemByProductAndOrderId( int $productId, int $orderId ) : ?array {
         $statement = 'DELETE FROM orderItems WHERE orderItemOrderId = :orderId AND orderItemProductId = :productId;';
         $query = $this->Database->prepare( $statement );
         $query->bindValue( ':orderId', $orderId );
         $query->bindValue( ':productId', $productId );
         $query->execute();
 
-        return $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return $query->fetchAll( \PDO::FETCH_ASSOC );
     }
 
 }
