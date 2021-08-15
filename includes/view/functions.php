@@ -1,6 +1,7 @@
 <?php
 
 use WBD0321\View;
+use WBD0321\Session;
 
 function display_form_errors( string $input_name ) : void {
     if ( isset( View::$data[ 'errors' ][ $input_name ] ) ) {
@@ -24,4 +25,17 @@ function navigation_link( string $target, string $title, string $classname = 'na
         ] ),
         $title
     );
+}
+
+function cart() : void {
+
+    $items = Session::get( 'cart' );
+
+    echo "<div class=\"cart\"><h3>Cart</h3>";
+    foreach( $items as $index => $item ) {
+        echo "<p data-id=" . $item[ 'itemId' ] . ">Product: " . $item[ 'itemName' ] . " | Amount: " . $item[ 'itemAmount' ] . "</p>";
+    }
+    echo "</div>";
+
+
 }

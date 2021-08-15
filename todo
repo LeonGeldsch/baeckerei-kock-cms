@@ -4,3 +4,6 @@
 - Fix phone and mobile validation
 - Swap $statement and $query
 - validate order pickupTime
+- set current timestamp in sql table not php
+- add Stylesheet+JS
+- translate site to german

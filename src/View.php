@@ -4,6 +4,7 @@ namespace WBD0321;
 
 use WBD0321\View\Script;
 use WBD0321\View\Stylesheet;
+use WBD0321\Session;
 
 /**
  * View Class

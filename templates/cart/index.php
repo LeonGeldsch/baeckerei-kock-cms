@@ -17,6 +17,6 @@
         <input type="text" name="<?= $item[ 'itemId' ] ?>" value="<?= $item['itemAmount'] ?>">
 
     <?php endforeach ?>
-    <input type="number" name="pickupTime" id="pickupTime" value="123123">
+    <input type="date" name="pickupTime" id="pickupTime" value="123123">
     <button type="submit">Confirm Order</button>
 </form>

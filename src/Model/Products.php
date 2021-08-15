@@ -37,7 +37,7 @@ final class Products extends AbstractModel {
         $statement->bindParam( ':productId', $productId );
         $statement->execute();
 
-        return $statement->fetchAll( \PDO::FETCH_ASSOC )[0]['productName'];
+        return $statement->fetchAll( \PDO::FETCH_ASSOC )[0]['productName'] ?? null;
     }
 
     public function productExists( ?int $productId ) : ?bool {

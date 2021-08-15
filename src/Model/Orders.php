@@ -4,6 +4,8 @@ namespace WBD0321\Model;
 
 use WBD0321\Model as AbstractModel;
 use WBD0321\Session;
+use WBD0321\Model\OrderItems as OrderItemsModel;
+use WBD0321\Model\Products as ProductsModel;
 
 /**
  * Orders Model Class
@@ -15,21 +17,32 @@ use WBD0321\Session;
  */
 final class Orders extends AbstractModel {
 
-    private function getAllOrderItems( int $orderId ) {
+    private ?OrderItemsModel $OrderItemsModel = NULL;
+    private ?ProductsModel $ProductsModel = NULL;
 
+
+    public function __construct() {
+        parent::__construct();
+
+        $this->OrderItemsModel = new OrderItemsModel();
     }
 
-    public function getOrdersById( int $userId ) : ?array {
+
+    public function getOrdersByUserId( int $userId ) : ?array {
         $query = 'SELECT * FROM orders WHERE orderUserId = :userId;';
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':userId', $userId);
         $statement->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        return $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return $result;
     }
 
 
-    public function addOrder( int $userId, int $pickupTime ) : ?array {
+    /*
+     * returns the id of the inserted Order
+     */
+    public function addOrder( int $userId, int $pickupTime ) : ?int {
         
         $status = 'in progress';
         $timestamp = $_SERVER[ 'REQUEST_TIME' ];
@@ -42,11 +55,7 @@ final class Orders extends AbstractModel {
         $query->bindValue( ':pickupTime', $pickupTime );
         $query->execute();
 
-        $return = $query->fetchAll( \PDO::FETCH_ASSOC );
-
-        print_r($return);
-
-        return $query->fetchAll( \PDO::FETCH_ASSOC );
+        return $this->Database->lastInsertId();
     }
 
     /*

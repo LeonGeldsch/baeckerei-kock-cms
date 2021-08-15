@@ -16,6 +16,8 @@
     var allAddToCartButtons = document.querySelectorAll('.addToCartButton');
     var allAmountInputs = document.querySelectorAll('.amountInput');
 
+    var cart = document.querySelectorAll('.cart p');
+
     for (let i = 0; i < allAddToCartButtons.length; i++) {
         
         allAddToCartButtons[i].addEventListener('click', ()=> {
@@ -29,7 +31,6 @@
     function callbackFunction (data) {
         console.log(data);
     }
-
 
     // for Ajax call to add to cart and display cart
 

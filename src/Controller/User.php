@@ -7,6 +7,8 @@ use WBD0321\Controller\Interfaces\IndexController;
 use WBD0321\Session;
 use WBD0321\Model\Users as UsersModel;
 use WBD0321\Model\Orders as OrdersModel;
+use WBD0321\Model\OrderItems as OrderItemsModel;
+use WBD0321\Model\Products as ProductsModel;
 use WBD0321\View\Script;
 use WBD0321\View\Stylesheet;
 
@@ -23,6 +25,8 @@ final class User extends AbstractController implements IndexController {
 
     private ?UsersModel $UsersModel = NULL;
     private ?OrdersModel $OrdersModel = NULL;
+    private ?OrderItemsModel $OrderItemsModel = NULL;
+    private ?ProductsModel $ProductsModel = NULL;
 
     /**
      * Constructor
@@ -32,6 +36,8 @@ final class User extends AbstractController implements IndexController {
 
         $this->UsersModel = new UsersModel();
         $this->OrdersModel = new OrdersModel();
+        $this->OrderItemsModel = new OrderItemsModel();
+        $this->ProductsModel = new ProductsModel();
 
         // Nutzerlogin überprüfen
         // Alle Methoden des Kontrollers sind nur für eingeloggte Nutzer erreichbar
@@ -115,28 +121,34 @@ final class User extends AbstractController implements IndexController {
      * @return  void
      */
     public function orders() : void {
-        $userOrders = $this->OrdersModel->getOrdersById( Session::get( 'login_id' ) );
+        $userOrders = $this->OrdersModel->getOrdersByUserId( Session::get( 'login_id' ) );
 
         if ( $userOrders === NULL ) {
-            exit( '404 - Page not Found!' );
+            echo "you have no orders!";
         }
 
-        // Benutzerprofil darstellen
+
+
+        foreach ($userOrders as $orderIndex => $order) {
+            
+            $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
+            foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
+                $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
+                $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+            }
+            $userOrders[ $orderIndex ] = $order;
+        }
+        
+        echo "<pre>";
+        print_r($userOrders);
+        echo "</pre>";
+        $this->View->title = "Orders";
 
         $this->View->orders = $userOrders;
 
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'user/orders' );
         $this->View->getTemplatePart( 'footer' );
-    }
-
-
-    public function addOrder( int $pickupTime, array $orderItems ) : void {
-        
-        if ( empty( $_POST ) === FALSE && $this->Model->addOrder( $errors ) ) {
-            $this->redirect( '/user/orders?status=success' );
-        }
-
     }
 
 }

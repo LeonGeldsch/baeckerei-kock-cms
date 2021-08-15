@@ -47,6 +47,8 @@
                         </li>
                     </ul>
                 </nav><!-- /#masthead__navigation -->
+                <?php cart() ?>
+
 
             </div><!-- /#masthead__inner -->
         </header><!-- /#masthead -->

@@ -62,8 +62,12 @@ final class Cart extends AbstractController implements IndexController {
     private function changeItemAmount( ?int $itemId, ?int $newAmount ) : void {
         $cart = Session::get( 'cart' ) ?: [];
         foreach ($cart as $key => $item) {
-            if ($item['itemId'] == $itemId) {
-                $cart[$key]['itemAmount'] = $newAmount;
+            if ($item['itemId'] == $itemId) { 
+                if($newAmount === 0) {
+                    unset($cart[$key]);
+                } else {
+                    $cart[$key]['itemAmount'] = $newAmount;                    
+                }
             }
         }
         Session::set( 'cart', $cart );
@@ -72,28 +76,34 @@ final class Cart extends AbstractController implements IndexController {
 
     public function buyCartItems() : void {
 
-        if ( null !== Session::get( 'login_id' )) {
+        if( null !== Session::get( 'login_id' )) {
             
             $pickupTime = $_POST['pickupTime'];
-    
+            array_pop($_POST);
+            $items = $_POST;
     
             $cart = Session::get( 'cart' );
             $userId = Session::get( 'login_id' );
     
             $orderId = $this->OrdersModel->addOrder( $userId, $pickupTime );
-    
-            for ($i=0; $i < count($_POST) - 1; $i++) { 
-                # code...
+
+            
+            foreach( $items as $productId => $amount ) {
+
+                $orderItemExists = $this->OrderItemsModel->orderItemExists( $orderId, $productId );
+
+                if($orderItemExists) {
+                    $this->OrderItemsModel->addToOrderItemAmount( $orderId, $productId, $amount );
+                } else {
+                    $this->OrderItemsModel->addOrderItem( $orderId, $productId, $amount );
+                }
             }
     
     
-            print_r($orderId);
 
         } else {
             // must be logged in to buy items!
         }
-
-
 
     }
 
