@@ -22,22 +22,22 @@ function navigation_link( string $target, string $title, string $classname = 'na
     $uriArray = array_filter( explode( '/', $_SERVER[ 'REQUEST_URI' ] ) );
     $lastUri = $uriArray [ count( $uriArray ) ] ?? " ";
     
-    print_r($lastTarget);
-
     printf(
         '<a href="%1$s" class="%2$s">%3$s</a>',
         $target,
         implode( ' ', [
             $classname,
-            strstr( $lastTarget , $lastUri ) ? $classname . '--active' : $classname . '--inactive',
+            strstr( $lastTarget , $lastUri ) ? ' active' : '',
         ] ),
         $title
     );
 
 }
 
+
+
 function cart() : void {
-    echo "<div class=\"cart\"><h3>Cart</h3>";
+    echo "<h3>Cart</h3>";
 
     $items = Session::get( 'cart' ) ?? [];
     
@@ -48,15 +48,12 @@ function cart() : void {
     } else {
         echo "cart is empty!";
     }
-    echo "</div>";
 }
 
 
 function displayLoginNav() : void {
     if( Session::isset( 'login_id' ) ) {
         echo '<li class="navigation__list-item">';
-        navigation_link( '/cart', 'Cart' );
-        echo '</li><li class="navigation__list-item">';
         navigation_link( '/logout', 'Logout' );
         echo '</li>';
     } else {

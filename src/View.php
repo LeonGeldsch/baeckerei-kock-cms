@@ -47,6 +47,9 @@ class View {
     public function __construct() {
         // Prozeduale Funktion, welche in den Templates verwendet werden einbinden
         include_once APP_INCLUDES_DIR . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'functions.php';
+
+        $this->addStylesheet( new Stylesheet( 'application', '/assets/css/application.css' ) ); 
+        $this->addScript( new Script( 'application', '/assets/js/application.js' ) ); 
     }
 
     /**

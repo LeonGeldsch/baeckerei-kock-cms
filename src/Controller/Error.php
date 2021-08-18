@@ -48,12 +48,16 @@ final class Error extends AbstractController implements IndexController {
         // HTTP response code mitschicken
         http_response_code( $code );
 
+        $this->View->getTemplatePart( 'header' );
+
         switch( $code ) {
             case 404:
             default:
                 echo "Page 404 - Not Found";
             break;
         }
+
+        $this->View->getTemplatePart( 'footer' );
 
         exit();
     }

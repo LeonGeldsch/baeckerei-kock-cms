@@ -1,14 +1,19 @@
 
-            <p>footer</p>
-            </div><!-- /#content__inner -->
-        </main><!-- /#content -->
+            </div>
+        </main>
 
-        <footer id="colophon">
-            <div id="colophon__inner">
+        <footer class="footer">
+            <div class="footer-wrapper">
 
-                <nav id="colophon__navigation" class="navigation">
-
-                </nav>
+                <div class="footer-section">
+                    <h4>Opening Times</h4>
+                </div>
+                <div class="footer-section">
+                    <h4>Opening Times</h4>
+                </div>
+                <div class="footer-section">
+                    <h4>Opening Times</h4>
+                </div>
 
             </div><!-- /#colophon__inner -->
         </footer><!-- /#colophon -->

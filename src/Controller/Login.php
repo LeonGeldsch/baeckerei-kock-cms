@@ -47,6 +47,8 @@ final class Login extends AbstractController implements IndexController {
             $this->View->errors = $errors;
         }
 
+        $this->View->title = "Login";
+
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'login/index' );
         $this->View->getTemplatePart( 'footer' );

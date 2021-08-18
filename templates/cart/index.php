@@ -8,7 +8,7 @@
     <input type="date" name="pickupTime" id="pickupTime" value="123123">
     <button type="submit">Confirm Order</button>
     <?php else : ?>
-    <p>You have no items in your cart.</p>
+    <p><?= _('You have no items in your cart.') ?></p>
     <a href="/products">look for items</a>
     <?php endif ?>
 </form>

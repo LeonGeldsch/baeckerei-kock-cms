@@ -16,7 +16,7 @@ class Stylesheet extends Script {
 //        }
 
         printf(
-            '<link id="%1$s" href="%2$s?%3$s">',
+            '<link id="%1$s" href="%2$s?%3$s" rel="stylesheet">',
             $this->id,
             $this->src,
             $this->version
