@@ -16,26 +16,54 @@ function title() : void {
 }
 
 function navigation_link( string $target, string $title, string $classname = 'navigation__anchor' ) : void {
+    
+    $targetArray = array_filter( explode( '/', $target ) );
+    $lastTarget =  $targetArray [ count( $targetArray ) ] ?? " ";
+    $uriArray = array_filter( explode( '/', $_SERVER[ 'REQUEST_URI' ] ) );
+    $lastUri = $uriArray [ count( $uriArray ) ] ?? " ";
+    
+    print_r($lastTarget);
+
     printf(
         '<a href="%1$s" class="%2$s">%3$s</a>',
         $target,
         implode( ' ', [
             $classname,
-            strstr( $_SERVER[ 'REQUEST_URI' ], $target ) ? $classname . '--active' : $classname . '--inactive',
+            strstr( $lastTarget , $lastUri ) ? $classname . '--active' : $classname . '--inactive',
         ] ),
         $title
     );
+
 }
 
 function cart() : void {
-
-    $items = Session::get( 'cart' );
-
     echo "<div class=\"cart\"><h3>Cart</h3>";
-    foreach( $items as $index => $item ) {
-        echo "<p data-id=" . $item[ 'itemId' ] . ">Product: " . $item[ 'itemName' ] . " | Amount: " . $item[ 'itemAmount' ] . "</p>";
+
+    $items = Session::get( 'cart' ) ?? [];
+    
+    if( count( $items ) > 0 ) {
+        foreach( $items as $index => $item ) {
+            echo "<p data-id=" . $item[ 'itemId' ] . ">Product: " . $item[ 'itemName' ] . " | Amount: " . $item[ 'itemAmount' ] . "</p>";
+        }
+    } else {
+        echo "cart is empty!";
     }
     echo "</div>";
+}
 
 
+function displayLoginNav() : void {
+    if( Session::isset( 'login_id' ) ) {
+        echo '<li class="navigation__list-item">';
+        navigation_link( '/cart', 'Cart' );
+        echo '</li><li class="navigation__list-item">';
+        navigation_link( '/logout', 'Logout' );
+        echo '</li>';
+    } else {
+        echo '<li class="navigation__list-item">';
+        navigation_link( '/login', 'Login' );
+        echo '</li><li class="navigation__list-item">';
+        navigation_link( '/register', 'Register' );
+        echo '</li>';
+    }
 }

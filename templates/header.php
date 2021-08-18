@@ -20,13 +20,13 @@
         <header id="masthead">
             <div id="masthead__inner" class="wrapper">
 
-                <form id="masthead__search-form" action="/search" method="GET">
-                    <input type="text" name="keyword">
-                    <input type="submit" value="Suchen">
-                </form>
+                <h1>Bakery</h1>
 
                 <nav id="masthead__navigation" class="navigation">
                     <ul class="navigation__list">
+                    <li class="navigation__list-item">
+                            <?php navigation_link( '/', 'Home' );  ?>
+                        </li>
                         <li class="navigation__list-item">
                             <?php navigation_link( '/products/buns', 'Buns' );  ?>
                         </li>
@@ -39,16 +39,10 @@
                         <li class="navigation__list-item">
                             <?php navigation_link( '/products/', 'All categories' );  ?>
                         </li>
-                        <li class="navigation__list-item">
-                            <?php navigation_link( '/login', 'Login' );  ?>
-                        </li>
-                        <li class="navigation__list-item">
-                            <?php navigation_link( '/register', 'Register' );  ?>
-                        </li>
+                        <?php displayLoginNav() ?>
                     </ul>
                 </nav><!-- /#masthead__navigation -->
                 <?php cart() ?>
-
 
             </div><!-- /#masthead__inner -->
         </header><!-- /#masthead -->

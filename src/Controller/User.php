@@ -138,10 +138,11 @@ final class User extends AbstractController implements IndexController {
             }
             $userOrders[ $orderIndex ] = $order;
         }
-        
+        /*
         echo "<pre>";
         print_r($userOrders);
         echo "</pre>";
+        */
         $this->View->title = "Orders";
 
         $this->View->orders = $userOrders;

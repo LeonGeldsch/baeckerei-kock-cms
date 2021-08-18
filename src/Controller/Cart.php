@@ -75,18 +75,16 @@ final class Cart extends AbstractController implements IndexController {
 
 
     public function buyCartItems() : void {
-
+        
         if( null !== Session::get( 'login_id' )) {
             
-            $pickupTime = $_POST['pickupTime'];
+            $pickupTime = strtotime( $_POST['pickupTime'] );
             array_pop($_POST);
             $items = $_POST;
     
             $cart = Session::get( 'cart' );
             $userId = Session::get( 'login_id' );
-    
             $orderId = $this->OrdersModel->addOrder( $userId, $pickupTime );
-
             
             foreach( $items as $productId => $amount ) {
 
@@ -98,11 +96,13 @@ final class Cart extends AbstractController implements IndexController {
                     $this->OrderItemsModel->addOrderItem( $orderId, $productId, $amount );
                 }
             }
+
+            Session::remove( 'cart' );
     
-    
+            $this->redirect( '/user/orders?status=success' );
 
         } else {
-            // must be logged in to buy items!
+            $this->redirect( '/login?status=must_be_logged_in_to_order' );
         }
 
     }

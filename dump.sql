@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 12. Aug 2021 um 23:54
+-- Erstellungszeit: 18. Aug 2021 um 12:00
 -- Server-Version: 10.5.10-MariaDB-1:10.5.10+maria~focal
 -- PHP-Version: 7.4.20
 
@@ -37,6 +37,34 @@ CREATE TABLE `files` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `orderItems`
+--
+
+CREATE TABLE `orderItems` (
+  `orderItemId` int(11) NOT NULL,
+  `orderItemProductId` int(11) NOT NULL,
+  `orderItemOrderId` int(11) NOT NULL,
+  `orderItemAmount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `orderItems`
+--
+
+INSERT INTO `orderItems` (`orderItemId`, `orderItemProductId`, `orderItemOrderId`, `orderItemAmount`) VALUES
+(66, 1, 135, 5),
+(67, 2, 135, 2),
+(68, 1, 136, 5),
+(69, 2, 136, 2),
+(70, 1, 137, 5),
+(71, 2, 137, 2),
+(72, 3, 138, 3),
+(73, 1, 138, 5),
+(74, 2, 138, 54);
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `orders`
 --
 
@@ -53,19 +81,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `orderUserId`, `orderStatus`, `orderTimestamp`, `orderPickupTime`) VALUES
-(1, 4, 'Done', 123213, 123213213);
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `order_items`
---
-
-CREATE TABLE `order_items` (
-  `orderitemId` int(11) NOT NULL,
-  `orderitemProductId` int(11) NOT NULL,
-  `orderitemOrderId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(135, 4, 'in progress', 1629225863, 1629324000),
+(136, 4, 'in progress', 1629225951, 1629324000),
+(137, 4, 'in progress', 1629226086, 1629324000),
+(138, 4, 'in progress', 1629226496, 1629496800);
 
 -- --------------------------------------------------------
 
@@ -150,16 +169,16 @@ ALTER TABLE `files`
   ADD PRIMARY KEY (`fileId`);
 
 --
+-- Indizes für die Tabelle `orderItems`
+--
+ALTER TABLE `orderItems`
+  ADD PRIMARY KEY (`orderItemId`);
+
+--
 -- Indizes für die Tabelle `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderId`);
-
---
--- Indizes für die Tabelle `order_items`
---
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`orderitemId`);
 
 --
 -- Indizes für die Tabelle `productCategories`
@@ -195,16 +214,16 @@ ALTER TABLE `files`
   MODIFY `fileId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT für Tabelle `orderItems`
+--
+ALTER TABLE `orderItems`
+  MODIFY `orderItemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
+--
 -- AUTO_INCREMENT für Tabelle `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT für Tabelle `order_items`
---
-ALTER TABLE `order_items`
-  MODIFY `orderitemId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT für Tabelle `productCategories`
