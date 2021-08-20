@@ -113,7 +113,7 @@ trait Users {
      */
     private function getCredentials( string $username ) : array {
         /** @var string $query */
-        $query = 'SELECT userId, userPassword, userSalt FROM users WHERE userUsername = :username;';
+        $query = 'SELECT userId, userPassword, userSalt, userLevel FROM users WHERE userUsername = :username;';
         /** @var \PDOStatement $statement */
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':username', $username );

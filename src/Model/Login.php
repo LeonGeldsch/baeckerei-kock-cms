@@ -110,6 +110,7 @@ final class Login extends AbstractModel {
             if ( $comparePasswords === TRUE ) {
                 // Logindaten vom Nutzer in der Session speichern
                 Session::set( 'login_id', $credentials[ 'userId' ] );
+                Session::set( 'user_level', $credentials[ 'userLevel' ] );
                 Session::set( 'login_username', $username );
                 Session::set( 'login_timestamp', time() );
             }

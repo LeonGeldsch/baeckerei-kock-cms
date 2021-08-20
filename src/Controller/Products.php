@@ -30,6 +30,8 @@ final class Products extends AbstractController implements IndexController {
 
         $this->View->categories =  $this->ProductsModel->getAllProductCategories();
 
+        $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/categories.css' ) ); 
+
         $this->View->title = 'Products';
 
         $this->View->getTemplatePart( 'header' );

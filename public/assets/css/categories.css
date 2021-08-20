@@ -1,0 +1,15 @@
+.product-category {
+    height: 200px;
+    border-bottom: 1px solid var(--main-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-category a {
+    color: var(--main-white);
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: 900;
+    -webkit-text-stroke: 3px var(--main-dark-red);
+}

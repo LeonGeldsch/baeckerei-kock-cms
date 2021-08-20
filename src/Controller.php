@@ -77,6 +77,14 @@ abstract class Controller {
         };
     }
 
+
+    protected function authorize_admin() : void {
+
+        if( Session::get( 'user_level' ) !== "admin" ) {
+            $this->redirect( '/login?status=insufficient_permission' );
+        };
+    }
+
     /**
      * Redirect
      *
