@@ -1,35 +1,44 @@
-<ul>
+<div class="product-grid">
     <?php foreach( $this->products as $product ) : ?>
-        <li>
-            <p class="productName"><?= $product[ 'productName' ] ?></p>
-            <p class="productId"><?= $product[ 'productId' ] ?></p>
-            <label for="amount">Amount</label>
-            <input type="number" name="amount" id="amount" class="amountInput" value="1">
-            <button class="addToCartButton">Add to cart</button>
-        </li>
+        <div class="product-grid-item" data-id="<?= $product[ 'productId' ] ?>">
+            <div class="item-image-wrapper"><img src="/assets/img/products/buns/schrippe.png" alt="" class="item-image"></div>
+            <div class="product-item-inner">
+                <h2 class="item-name"><?= $product[ 'productName' ] ?></h2>
+                <div class="item-interaction">
+                    <input type="number" name="amount" id="amount" class="item-amount-input" value="1">
+                    <button class="item-button">Add to cart</button>
+                </div>
+            </div>
+        </div>
     <?php endforeach ?>
-</ul>
+</div>
 <script>
 
-    var allProductIds = document.querySelectorAll('.productId');
-    var allProductNames = document.querySelectorAll('.productName');
-    var allAddToCartButtons = document.querySelectorAll('.addToCartButton');
-    var allAmountInputs = document.querySelectorAll('.amountInput');
+    var allItems = document.querySelectorAll('.product-grid-item');
 
-    var cart = document.querySelectorAll('.cart p');
+    var allProductNames = document.querySelectorAll('.item-name');
+    var allAddToCartButtons = document.querySelectorAll('.item-button');
+    var allAmountInputs = document.querySelectorAll('.item-amount-input');
 
-    for (let i = 0; i < allAddToCartButtons.length; i++) {
+    var allCartItems = document.querySelectorAll('.cart-items p');
+
+    for (let i = 0; i < allItems.length; i++) {
         
         allAddToCartButtons[i].addEventListener('click', ()=> {
 
-            let requestData = {'itemId': allProductIds[i].textContent, 'itemAmount': allAmountInputs[i].value, 'itemName': allProductNames[i].textContent};
+            let requestData = {'itemId': allItems[i].dataset.id, 'itemAmount': allAmountInputs[i].value, 'itemName': allProductNames[i].textContent};
 
             ajax.post('/cart/updatecart', requestData, callbackFunction, true);
         });
     }
 
     function callbackFunction (data) {
-        console.log(data);
+        console.log( JSON.parse( data ));
+        updateCart(data);
+    }
+
+    function updateCart(data) {
+        
     }
 
     // for Ajax call to add to cart and display cart

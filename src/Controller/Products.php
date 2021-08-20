@@ -46,6 +46,8 @@ final class Products extends AbstractController implements IndexController {
         
         $this->View->title = 'Buns';
 
+        $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
+
         $this->View->products = $this->ProductsModel->getProductsByCategory( 'buns' );
 
         $this->View->getTemplatePart( 'header' );
@@ -61,6 +63,8 @@ final class Products extends AbstractController implements IndexController {
         
         $this->View->title = 'Bread';
 
+        $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
+
         $this->View->products = $this->ProductsModel->getProductsByCategory( 'bread' );
 
         $this->View->getTemplatePart( 'header' );
@@ -75,6 +79,8 @@ final class Products extends AbstractController implements IndexController {
         $this->View->errors = $errors;
         
         $this->View->title = 'Cake';
+
+        $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
 
         $this->View->products = $this->ProductsModel->getProductsByCategory( 'cake' );
 

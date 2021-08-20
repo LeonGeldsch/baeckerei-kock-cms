@@ -2,6 +2,7 @@
     <?php if( !empty($this->items) ) : ?>
     <?php foreach( $this->items as $item ) : ?>
 
+        <label for="<?= $item[ 'itemId' ] ?>"><?= $item[ 'itemName' ] ?></label>
         <input type="text" name="<?= $item[ 'itemId' ] ?>" value="<?= $item[ 'itemAmount' ] ?>">
 
     <?php endforeach ?>

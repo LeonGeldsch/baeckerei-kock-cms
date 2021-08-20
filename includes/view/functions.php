@@ -37,7 +37,6 @@ function navigation_link( string $target, string $title, string $classname = 'na
 
 
 function cart() : void {
-    echo "<h3>Cart</h3>";
 
     $items = Session::get( 'cart' ) ?? [];
     

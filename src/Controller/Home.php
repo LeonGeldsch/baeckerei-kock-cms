@@ -22,6 +22,9 @@ final class Home extends AbstractController implements IndexController {
 
         $this->View->title = 'Home';
 
+        $this->View->addStylesheet( new Stylesheet( 'home', '/assets/css/home.css' ) ); 
+        $this->View->addScript( new Script( 'home', '/assets/js/home.js' ) ); 
+
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'home/index' );
         $this->View->getTemplatePart( 'footer' );

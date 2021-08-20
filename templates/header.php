@@ -37,7 +37,7 @@
                         <img src="/assets/img/kock_logo.jpg" alt="Kock logo" class="header-logo">
                     </a>
                     <div class="top-links top-right-links">
-                        <a class="header-link" href="">
+                        <a class="header-link" href="/">
                             <img src="/assets/img/heart.svg" alt="">
                         </a>
                         <a class="header-link" href="/user">
@@ -69,8 +69,11 @@
 
         <div class="cart-modal-wrapper">
             <div class="cart-modal">
+                <h3>Cart</h3>
                 <img class="cart-modal-close-button" src="/assets/img/x.svg"></img>
-                <?php cart() ?>
+                <div class="cart-items">
+                    <?php cart() ?>
+                </div>
                 <a href="/cart"><button>Go to checkout</button></a>
             </div>
         </div>
