@@ -7,6 +7,7 @@
     width: var(--slider-width);
     height: var(--slider-height);
     margin: 0 auto;
+    cursor: grab;
     position: relative;
 }
 
@@ -35,7 +36,6 @@
 .slide {
     width: var(--slider-width);
     height: var(--slider-height);
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,6 +45,10 @@
     border-radius: 2px;
     background-position: center;
     background-size: cover;
+}
+
+.slider:active {
+    cursor: grabbing;
 }
 
 .slide:nth-child(2),

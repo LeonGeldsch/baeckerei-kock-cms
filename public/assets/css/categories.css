@@ -1,15 +1,22 @@
 .product-category {
     height: 200px;
-    border-bottom: 1px solid var(--main-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    list-style: none;
+}
+
+.product-category:last-child a {
+    border-bottom: none;
 }
 
 .product-category a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
     color: var(--main-white);
     text-decoration: none;
     font-size: 3rem;
     font-weight: 900;
+    border-bottom: 1px solid var(--main-black);
     -webkit-text-stroke: 3px var(--main-dark-red);
 }
