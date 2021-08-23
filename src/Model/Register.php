@@ -93,7 +93,7 @@ final class Register extends AbstractModel {
             $query->bindValue( ':mobileNumber', $mobileNumber );
             $query->bindValue( ':userLevel', $userLevel );
             $query->execute();
-            
+                        
             return $query->rowCount() > 0;
         }
         else {

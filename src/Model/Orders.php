@@ -39,6 +39,30 @@ final class Orders extends AbstractModel {
     }
 
 
+    public function updateOrderStatus( int $orderId, string $orderStatus ) : ?array {
+        $query = 'UPDATE orders SET orderStatus = :orderStatus WHERE orderId = :orderId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':orderStatus', $orderStatus);
+        $statement->bindParam( ':orderId', $orderId);
+        $statement->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        return $result;
+    }
+
+
+    public function getOrdersByDate( int $fromDate, int $toDate ) : ?array {
+        $query = 'SELECT * FROM orders WHERE orderPickupTime BETWEEN :fromDate AND :toDate';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':fromDate', $fromDate);
+        $statement->bindParam( ':toDate', $toDate);
+        $statement->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        return $result;
+    }
+
+
     /*
      * returns the id of the inserted Order
      */

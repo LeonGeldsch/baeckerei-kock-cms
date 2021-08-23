@@ -31,7 +31,7 @@ final class Admin extends AbstractController implements IndexController {
         $this->ProductsModel = new ProductsModel();
 
         // Nutzerlogin überprüfen
-        // Alle Methoden des Kontrollers sind nur für eingeloggte Nutzer erreichbar
+        // Alle Methoden des Kontrollers sind nur für eingeloggte Admins erreichbar
         $this->authorize_admin();
     }
 
@@ -47,8 +47,102 @@ final class Admin extends AbstractController implements IndexController {
      */
     public function index() : void {
         /** @var string $session_username */
-        $session_username = Session::get( 'login_username' );
 
+        $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'admin/index' );
+        $this->View->getTemplatePart( 'footer' );
     }
+
+    public function today() : void {
+        /** @var string $session_username */
+
+        $currentTime = time();
+        $beginOfToday = strtotime( 'today', $currentTime );
+        $endOfToday = strtotime( 'tomorrow', $beginOfToday ) - 1;
+
+        $orders = $this->OrdersModel->getOrdersByDate( $beginOfToday, $endOfToday );
+
+        foreach ( $orders as $index => $order ) {
+            $user = $this->UsersModel->getUserById( $order[ 'orderUserId' ] );
+            $order[ 'orderUserFirstname' ] = $user[ 'userFirstname' ];
+            $order[ 'orderUserLastname' ] = $user[ 'userLastname' ];
+            $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
+            foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
+                $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
+                $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+            }
+            $orders[ $index ] = $order;
+        }
+
+        echo "<pre>";
+        print_r($orders);
+        echo "</pre>";
+
+
+        $this->View->orders = $orders;
+
+        $this->View->title = 'Admin';
+
+        $this->View->getTemplatePart( 'header' );
+        $this->View->getTemplatePart( 'admin/today' );
+        $this->View->getTemplatePart( 'footer' );
+    }
+
+
+    public function updateOrderStatus( int $orderId, string $newStatus ) : void {
+
+        $this->OrdersModel->updateOrderStatus( $orderId, $newStatus );
+
+    }
+
+
+    public function products( string $action = 'index' ) : void {
+
+
+        switch ( $action ) {
+            case 'index':
+                $this->productsIndex();
+                break;
+            case 'new':
+                $this->addNewProduct();
+                break;
+                
+            default:
+                break;
+        }
+
+    }
+
+    private function productsIndex() {
+        $this->View->products = $this->ProductsModel->getAllProducts();
+        
+        $this->View->title = 'Admin - Products';
+        $this->View->getTemplatePart( 'header' );
+        $this->View->getTemplatePart( 'admin/products/index' );
+        $this->View->getTemplatePart( 'footer' );
+    }
+
+    private function addNewProduct() {
+
+        //print_r($_POST);
+
+        $errors = [];
+
+        if ( empty( $_POST ) === FALSE && $this->ProductsModel->addNewProduct( $errors ) ) {
+            $this->redirect( '/admin/products' );
+        }
+        else {
+            $this->View->errors = $errors;
+        }
+
+        $this->View->categories = $this->ProductsModel->getAllProductCategories();
+        
+        $this->View->title = "Add new product";
+
+        $this->View->getTemplatePart( 'header' );
+        $this->View->getTemplatePart( 'admin/products/new' );
+        $this->View->getTemplatePart( 'footer' );
+
+    }
+
 }

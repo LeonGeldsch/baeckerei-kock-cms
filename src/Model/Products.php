@@ -49,5 +49,33 @@ final class Products extends AbstractModel {
         return $statement->rowCount() > 0;
     }
 
+    public function addNewProduct( array &$errors ) : bool {
+        
+        $productName = filter_input( INPUT_POST, 'name' );
+        $productPrice = filter_input( INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
+        $productDescription = filter_input( INPUT_POST, 'description' );
+        $productActive = filter_input( INPUT_POST, 'active', FILTER_SANITIZE_NUMBER_INT ) ?? 0;
+        $productImageId = filter_input( INPUT_POST, 'image', FILTER_SANITIZE_NUMBER_INT );
+        $productCategory = filter_input( INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT );
+
+        
+        $query = 'INSERT INTO products ( productName, productPrice, productDescription, productActive, productImageId, productCategory) VALUES ( :productName, :productPrice, :productDescription, :productActive, :productImageId, :productCategory);';
+        
+        $statement = $this->Database->prepare( $query );
+        $statement->bindValue( ':productName', $productName );
+        $statement->bindValue( ':productPrice', $productPrice );
+        $statement->bindValue( ':productDescription', $productDescription );
+        $statement->bindValue( ':productActive', $productActive );
+        $statement->bindValue( ':productImageId', $productImageId );
+        $statement->bindValue( ':productCategory', $productCategory );
+
+        $statement->execute();
+
+        print_r($statement->errorInfo());
+
+        return $statement->rowCount() > 0;
+    }
+
 
 }
+

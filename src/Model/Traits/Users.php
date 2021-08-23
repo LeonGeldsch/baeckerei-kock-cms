@@ -128,7 +128,7 @@ trait Users {
      * @return array
      */
     public function getUserByUsername( string $username ) : ?array {
-        $query = 'SELECT userId, userUsername, userEmail, userRegisterTime FROM users WHERE userUsername = :username;';
+        $query = 'SELECT userId, userUsername, userFirstname, userLastname, userEmail, userRegisterTime FROM users WHERE userUsername = :username;';
 
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':username', $username );
@@ -138,6 +138,19 @@ trait Users {
 
         return is_array( $user ) ? $user : NULL;
     }
+
+    public function getUserById( int $userId ) : ?array {
+        $query = 'SELECT userId, userUsername, userFirstname, userLastname, userEmail, userRegisterTime FROM users WHERE userId = :userId;';
+
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':userId', $userId );
+        $statement->execute();
+
+        $user = $statement->fetch( \PDO::FETCH_ASSOC );
+
+        return is_array( $user ) ? $user : NULL;
+    }
+
 
     /**
      * Username Exists
