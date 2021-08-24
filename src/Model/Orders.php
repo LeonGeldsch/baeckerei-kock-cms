@@ -70,15 +70,27 @@ final class Orders extends AbstractModel {
         $status = 'in progress';
         $timestamp = $_SERVER[ 'REQUEST_TIME' ];
 
-        $statement = 'INSERT INTO orders ( orderUserId, orderStatus, orderTimestamp, orderPickupTime ) VALUES ( :userId, :status, :timestamp, :pickupTime );';
-        $query = $this->Database->prepare( $statement );
-        $query->bindValue( ':userId', $userId );
-        $query->bindValue( ':status', $status );
-        $query->bindValue( ':timestamp', $timestamp );
-        $query->bindValue( ':pickupTime', $pickupTime );
-        $query->execute();
+        $query = 'INSERT INTO orders ( orderUserId, orderStatus, orderTimestamp, orderPickupTime ) VALUES ( :userId, :status, :timestamp, :pickupTime );';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindValue( ':userId', $userId );
+        $statement->bindValue( ':status', $status );
+        $statement->bindValue( ':timestamp', $timestamp );
+        $statement->bindValue( ':pickupTime', $pickupTime );
+        $statement->execute();
 
         return $this->Database->lastInsertId();
     }
+
+
+    public function removeOrder( int $orderId ) : bool {
+        
+        $query = 'DELETE FROM orders WHERE orderId = :orderId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindValue( ':orderId', $orderId );
+        $statement->execute();
+
+        return $statement->rowCount() > 0;
+    }
+
 
 }

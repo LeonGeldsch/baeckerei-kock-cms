@@ -90,4 +90,15 @@ final class OrderItems extends AbstractModel {
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
 
+
+    public function removeOrderItemsByOrderId( int $orderId ) : bool {
+        $query = 'DELETE FROM orderItems WHERE orderItemOrderId = :orderId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindValue( ':orderId', $orderId );
+        $statement->execute();
+
+        return $statement->rowCount() > 0;
+    }
+
+
 }

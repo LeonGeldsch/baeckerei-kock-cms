@@ -146,6 +146,18 @@ final class Admin extends AbstractController implements IndexController {
 
     }
 
+    public function removeOrder() : void {
+
+        $orderId = filter_input( INPUT_POST, 'orderId' );
+
+        $orderSuccess = $this->OrdersModel->removeOrder( $orderId );
+        $itemsSuccess = $this->OrderItemsModel->removeOrderItemsByOrderId( $orderId );
+
+        echo ( $orderSuccess && $itemsSuccess );
+
+    }
+
+
 
     public function products( string $action = 'index' ) : void {
 

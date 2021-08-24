@@ -9,7 +9,7 @@
 <h2>Orders: <?= $this->date ?></h2>
 <ul>
     <?php foreach( (array) $this->orders as $order ) : ?>
-        <li>
+        <li class="order">
             <p>
                 <?= date( 'D, d M Y', $order[ 'orderPickupTime' ] )  ?>
                 <select name="status" class="orderStatusSelect" data-orderId="<?= $order[ 'orderId' ] ?>">
@@ -26,6 +26,7 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+            <button class="orderDeleteButton" data-orderId="<?= $order[ 'orderId' ] ?>">Delete Order</button>
         </li>
     <?php endforeach; ?>
 </ul>
