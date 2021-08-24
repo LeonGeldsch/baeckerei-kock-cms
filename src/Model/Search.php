@@ -37,4 +37,5 @@ final class Search extends AbstractModel {
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }
 
+
 }

@@ -1,3 +1,4 @@
+<a href="/admin/products/new">Add new product</a>
 <ul>
     <?php foreach( $this->products as $product ) : ?>
         <li>

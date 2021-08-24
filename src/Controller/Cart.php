@@ -78,7 +78,7 @@ final class Cart extends AbstractController implements IndexController {
         
         if( null !== Session::get( 'login_id' )) {
             
-            $pickupTime = strtotime( $_POST['pickupTime'] );
+            $pickupTime = strtotime( $_POST['pickupTime'] ) + 43200;
             array_pop($_POST);
             $items = $_POST;
     

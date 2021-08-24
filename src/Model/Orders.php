@@ -39,15 +39,14 @@ final class Orders extends AbstractModel {
     }
 
 
-    public function updateOrderStatus( int $orderId, string $orderStatus ) : ?array {
+    public function updateOrderStatus( int $orderId, string $orderStatus ) : bool {
         $query = 'UPDATE orders SET orderStatus = :orderStatus WHERE orderId = :orderId;';
         $statement = $this->Database->prepare( $query );
         $statement->bindParam( ':orderStatus', $orderStatus);
         $statement->bindParam( ':orderId', $orderId);
         $statement->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        return $result;
+        return $statement->rowCount() > 0;
     }
 
 
@@ -61,7 +60,7 @@ final class Orders extends AbstractModel {
 
         return $result;
     }
-
+    
 
     /*
      * returns the id of the inserted Order
@@ -81,21 +80,5 @@ final class Orders extends AbstractModel {
 
         return $this->Database->lastInsertId();
     }
-
-    /*
-    private function addOrderItems( int $orderId, array $orderItems ) : ?array {
-
-        $return = [];
-
-        foreach ($orderItems as $orderItem) {
-
-            $this
-
-            array_merge($return, $query->fetchAll( \PDO::FETCH_ASSOC ));
-        }
-        
-        return $return;
-    }
-    */
 
 }

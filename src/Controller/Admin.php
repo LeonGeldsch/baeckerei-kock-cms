@@ -33,6 +33,7 @@ final class Admin extends AbstractController implements IndexController {
         // Nutzerlogin überprüfen
         // Alle Methoden des Kontrollers sind nur für eingeloggte Admins erreichbar
         $this->authorize_admin();
+
     }
 
     /**
@@ -46,52 +47,102 @@ final class Admin extends AbstractController implements IndexController {
      * @return  void
      */
     public function index() : void {
-        /** @var string $session_username */
+
 
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'admin/index' );
         $this->View->getTemplatePart( 'footer' );
     }
 
-    public function today() : void {
-        /** @var string $session_username */
 
-        $currentTime = time();
-        $beginOfToday = strtotime( 'today', $currentTime );
-        $endOfToday = strtotime( 'tomorrow', $beginOfToday ) - 1;
+    public function orders( int $day = NULL ) : void {
 
-        $orders = $this->OrdersModel->getOrdersByDate( $beginOfToday, $endOfToday );
+        if( empty( $_POST ) === FALSE ) {
 
-        foreach ( $orders as $index => $order ) {
-            $user = $this->UsersModel->getUserById( $order[ 'orderUserId' ] );
-            $order[ 'orderUserFirstname' ] = $user[ 'userFirstname' ];
-            $order[ 'orderUserLastname' ] = $user[ 'userLastname' ];
-            $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
-            foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
-                $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
-                $order[ 'orderItems' ][ $itemIndex] = $orderItem;
-            }
-            $orders[ $index ] = $order;
+            $searchTime = strtotime( $_POST[ 'date' ] );
+
+            $beginOfToday = strtotime( 'today', time() );
+
+            $timeOffset = $searchTime - $beginOfToday;
+
+            $days = $timeOffset / 86400;
+
+            $this->redirect( APP_URL . '/admin/orders/' . $days );
+
         }
 
-        echo "<pre>";
-        print_r($orders);
-        echo "</pre>";
 
+        if( $day !== NULL ) {
+            $currentTime = time();
+            $beginOfToday = strtotime( 'today', $currentTime );
+            $endOfToday = strtotime( 'tomorrow', $beginOfToday ) + $day * 86400 - 1;
+            $beginOfToday += $day * 86400;
+    
+            $orders = $this->OrdersModel->getOrdersByDate( $beginOfToday, $endOfToday );
+    
+            foreach ( $orders as $index => $order ) {
+                $user = $this->UsersModel->getUserById( $order[ 'orderUserId' ] );
+                $order[ 'orderUserFirstname' ] = $user[ 'userFirstname' ];
+                $order[ 'orderUserLastname' ] = $user[ 'userLastname' ];
+                $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
+                foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
+                    $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
+                    $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+                }
+                $orders[ $index ] = $order;
+            }
 
-        $this->View->orders = $orders;
+            $date = date( 'l, d M Y', $beginOfToday );
 
-        $this->View->title = 'Admin';
+            $this->View->orders = $orders;
+            $this->View->date = $date;
+            $this->View->title = 'Orders - ' . $date;
+    
+            
+        } else {
+
+            $currentTime = time();
+            $beginOfToday = strtotime( 'today', $currentTime );
+            $endOfToday = strtotime( 'tomorrow', $beginOfToday ) + 7 * 86400 - 1;
+
+            $orders = $this->OrdersModel->getOrdersByDate( $beginOfToday, $endOfToday );
+    
+            foreach ( $orders as $index => $order ) {
+                $user = $this->UsersModel->getUserById( $order[ 'orderUserId' ] );
+                $order[ 'orderUserFirstname' ] = $user[ 'userFirstname' ];
+                $order[ 'orderUserLastname' ] = $user[ 'userLastname' ];
+                $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
+                foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
+                    $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
+                    $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+                }
+                $orders[ $index ] = $order;
+            }
+
+            $this->View->orders = $orders;
+            $this->View->date = 'this week';
+            $this->View->title = 'Admin - Orders';
+        }
+        
+        $this->View->addScript( new Script( 'ajax', '/assets/js/ajax.js' ) );
+        $this->View->addScript( new Script( 'admin', '/assets/js/admin_orders.js' ) );
 
         $this->View->getTemplatePart( 'header' );
-        $this->View->getTemplatePart( 'admin/today' );
+        $this->View->getTemplatePart( 'admin/orders' );
         $this->View->getTemplatePart( 'footer' );
+
     }
 
 
-    public function updateOrderStatus( int $orderId, string $newStatus ) : void {
+    public function updateOrderStatus() : void {
 
-        $this->OrdersModel->updateOrderStatus( $orderId, $newStatus );
+        $orderId = filter_input( INPUT_POST, 'orderId' );
+        $newStatus = filter_input( INPUT_POST, 'newStatus' );
+
+        if ( $newStatus === 'in progress' || $newStatus === 'ready' || $newStatus === 'collected' ) {
+            $this->OrdersModel->updateOrderStatus( $orderId, $newStatus );
+
+        }
 
     }
 
