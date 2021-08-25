@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <label for="name">Name</label>
     <input type="text" name="name">
     <label for="price">Price</label>
@@ -8,7 +8,7 @@
     <label for="active">Active</label>
     <input type="checkbox" name="active" value="1">
     <label for="image">Image</label>
-    <input type="number" name="image">
+    <input type="file" name="image">
     <select name="category">
         <?php foreach( $this->categories as $category ) : ?>
             <option value="<?= $category[ 'categoryId' ] ?>"><?= $category[ 'categoryName' ] ?></option>

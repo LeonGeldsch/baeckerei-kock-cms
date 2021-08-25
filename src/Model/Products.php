@@ -3,8 +3,12 @@
 namespace WBD0321\Model;
 
 use WBD0321\Model as AbstractModel;
+use WBD0321\Model\Traits\ImageUpload as ImageUploadTrait;
+
 
 final class Products extends AbstractModel {
+
+    use ImageUploadTrait;
 
     public function getAllProducts() : ?array {
         $query = 'SELECT * FROM products;';
@@ -50,12 +54,14 @@ final class Products extends AbstractModel {
     }
 
     public function addNewProduct( array &$errors ) : bool {
+
+        //print_r( $_FILES );
         
         $productName = filter_input( INPUT_POST, 'name' );
         $productPrice = filter_input( INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
         $productDescription = filter_input( INPUT_POST, 'description' );
         $productActive = filter_input( INPUT_POST, 'active', FILTER_SANITIZE_NUMBER_INT ) ?? 0;
-        $productImageId = filter_input( INPUT_POST, 'image', FILTER_SANITIZE_NUMBER_INT );
+        $productImageId = $this->uploadImage( $errors, 'image' );
         $productCategory = filter_input( INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT );
 
         
@@ -76,6 +82,4 @@ final class Products extends AbstractModel {
         return $statement->rowCount() > 0;
     }
 
-
 }
-

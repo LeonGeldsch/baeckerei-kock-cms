@@ -176,7 +176,7 @@ final class Admin extends AbstractController implements IndexController {
 
     }
 
-    private function productsIndex() {
+    private function productsIndex() : void {
         $this->View->products = $this->ProductsModel->getAllProducts();
         
         $this->View->title = 'Admin - Products';
@@ -185,13 +185,14 @@ final class Admin extends AbstractController implements IndexController {
         $this->View->getTemplatePart( 'footer' );
     }
 
-    private function addNewProduct() {
+    private function addNewProduct() : void {
 
         //print_r($_POST);
 
         $errors = [];
 
         if ( empty( $_POST ) === FALSE && $this->ProductsModel->addNewProduct( $errors ) ) {
+            
             $this->redirect( '/admin/products' );
         }
         else {

@@ -79,7 +79,7 @@ trait ImageUpload {
      * @return  int|NULL
      */
     private function insertFile( string $type, string $name, string $path, string $uri, array $thumbnails ) : ?int {
-        $query = 'INSERT INTO files ( type, filename, filepath, fileuri, thumbnails ) VALUES ( :type, :filename, :filepath, :fileuri, :thumbnails )';
+        $query = 'INSERT INTO files ( fileType, fileName, filePath, fileUri, fileThumbnails ) VALUES ( :type, :filename, :filepath, :fileuri, :thumbnails )';
 
         $statement = $this->Database->prepare( $query );
         $statement->bindValue( ':type', $type );
@@ -88,6 +88,9 @@ trait ImageUpload {
         $statement->bindValue( ':fileuri', $uri );
         $statement->bindValue( ':thumbnails', serialize( json_encode( $thumbnails ) ) );
         $statement->execute();
+
+        print_r($statement->errorInfo());
+
 
         return $statement->rowCount() > 0 ? $this->Database->lastInsertId() : NULL;
     }
@@ -162,7 +165,7 @@ trait ImageUpload {
 
             return NULL;
         }
-        var_dump( $_FILES[ $input_name ] );
+        //var_dump( $_FILES[ $input_name ] );
 
         /** @var string $tempImageID */
         $tempImageID = $_FILES[ $input_name ][ 'name' ];
@@ -236,7 +239,8 @@ trait ImageUpload {
         }
 
 
-        var_dump( $thumbs );
+        //var_dump( $thumbs );
+
 
 
         return  $this->insertFile( $tempImageType, $imageName . $imageExt, $imagePath, $imageUri, $thumbs );
