@@ -11,7 +11,7 @@
     <input type="file" name="image">
     <select name="category">
         <?php foreach( $this->categories as $category ) : ?>
-            <option value="<?= $category[ 'categoryId' ] ?>"><?= $category[ 'categoryName' ] ?></option>
+            <option value="<?= $category[ 'categoryName' ] ?>"><?= $category[ 'categoryName' ] ?></option>
         <?php endforeach ?>
     </select>
     <button type="submit">Submit</button>

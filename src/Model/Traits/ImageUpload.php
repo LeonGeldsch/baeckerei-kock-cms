@@ -228,7 +228,7 @@ trait ImageUpload {
 
         if ( is_null( $thumbnails ) === FALSE ) {
             foreach( $thumbnails as $key => $thumbnail ) {
-                $thumbnailName = $imageName . "-key";
+                $thumbnailName = $imageName . "-$key";
                 $thumbnailPath = $targetDir . DIRECTORY_SEPARATOR . $imageName . "-$key" . $imageExt;
                 $thumbnailUri = $upload_uri . DIRECTORY_SEPARATOR . $dateCodedPath . DIRECTORY_SEPARATOR . $imageName . "-$key" . $imageExt;
                 $thumbWidth = $thumbnail[ 0 ];

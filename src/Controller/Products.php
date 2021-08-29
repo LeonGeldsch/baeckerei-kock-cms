@@ -8,17 +8,20 @@ use WBD0321\Session;
 use WBD0321\View\Script;
 use WBD0321\View\Stylesheet;
 use WBD0321\Model\Products as ProductsModel;
+use WBD0321\Model\Files as FilesModel;
 
 
 
 final class Products extends AbstractController implements IndexController {
 
     private ?ProductsModel $ProductsModel = NULL;
+    private ?FilesModel $FilesModel = NULL;
 
     public function __construct() {
         parent::__construct();
 
         $this->ProductsModel = new ProductsModel();
+        $this->FilesModel = new FilesModel();
     }
 
 
@@ -50,8 +53,19 @@ final class Products extends AbstractController implements IndexController {
 
         $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
 
-        $this->View->products = $this->ProductsModel->getProductsByCategory( 'buns' );
+        $products = $this->ProductsModel->getProductsByCategory( 'buns' );
 
+        // missing default image
+        foreach ($products as $index => $product) {
+            $products[ $index ][ 'productImageUri' ] = $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileUri' ];
+            $products[ $index ][ 'productImageThumbUri' ] = json_decode( unserialize( $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileThumbnails' ] ) )->thumbnail->fileuri;
+        }
+
+        $this->View->products = $products;
+
+        echo "<pre>";
+        print_r( $products );
+        echo "</pre>";
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'products/product' );
         $this->View->getTemplatePart( 'footer' );

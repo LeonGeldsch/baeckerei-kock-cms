@@ -62,7 +62,7 @@ final class Products extends AbstractModel {
         $productDescription = filter_input( INPUT_POST, 'description' );
         $productActive = filter_input( INPUT_POST, 'active', FILTER_SANITIZE_NUMBER_INT ) ?? 0;
         $productImageId = $this->uploadImage( $errors, 'image' );
-        $productCategory = filter_input( INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT );
+        $productCategory = filter_input( INPUT_POST, 'category' );
 
         
         $query = 'INSERT INTO products ( productName, productPrice, productDescription, productActive, productImageId, productCategory) VALUES ( :productName, :productPrice, :productDescription, :productActive, :productImageId, :productCategory);';

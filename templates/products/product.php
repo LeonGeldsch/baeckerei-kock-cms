@@ -1,7 +1,7 @@
 <div class="product-grid">
     <?php foreach( $this->products as $product ) : ?>
         <div class="product-grid-item" data-id="<?= $product[ 'productId' ] ?>">
-            <div class="item-image-wrapper"><img src="/assets/img/products/buns/schrippe.png" alt="" class="item-image"></div>
+            <div class="item-image-wrapper"><img src="<?= $product[ 'productImageThumbUri' ] ?>" alt="" class="item-image"></div>
             <div class="product-item-inner">
                 <h2 class="item-name"><?= $product[ 'productName' ] ?></h2>
                 <div class="item-interaction">

@@ -6,6 +6,7 @@
 - set current timestamp in sql table not php
 X add Stylesheet+JS
 - update cart async
+- set default image for products
 - gettext echo ersetzen
     - translate site to german
 
