@@ -82,4 +82,18 @@ final class Products extends AbstractModel {
         return $statement->rowCount() > 0;
     }
 
+    public function deleteProduct() : ?bool {
+
+        $productId = filter_input( INPUT_POST, 'productId' );
+
+        echo $productId;
+
+        $query = 'DELETE FROM products WHERE productId = :productId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':productId', $productId );
+        $statement->execute();
+
+        return $statement->rowCount() > 0;
+    }
+
 }

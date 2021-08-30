@@ -63,9 +63,6 @@ final class Products extends AbstractController implements IndexController {
 
         $this->View->products = $products;
 
-        echo "<pre>";
-        print_r( $products );
-        echo "</pre>";
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'products/product' );
         $this->View->getTemplatePart( 'footer' );
@@ -81,7 +78,15 @@ final class Products extends AbstractController implements IndexController {
 
         $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
 
-        $this->View->products = $this->ProductsModel->getProductsByCategory( 'bread' );
+        $products = $this->ProductsModel->getProductsByCategory( 'bread' );
+
+        // missing default image
+        foreach ($products as $index => $product) {
+            $products[ $index ][ 'productImageUri' ] = $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileUri' ];
+            $products[ $index ][ 'productImageThumbUri' ] = json_decode( unserialize( $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileThumbnails' ] ) )->thumbnail->fileuri;
+        }
+
+        $this->View->products = $products;
 
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'products/product' );
@@ -98,7 +103,15 @@ final class Products extends AbstractController implements IndexController {
 
         $this->View->addStylesheet( new Stylesheet( 'product', '/assets/css/product.css' ) ); 
 
-        $this->View->products = $this->ProductsModel->getProductsByCategory( 'cake' );
+        $products = $this->ProductsModel->getProductsByCategory( 'cake' );
+
+        // missing default image
+        foreach ($products as $index => $product) {
+            $products[ $index ][ 'productImageUri' ] = $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileUri' ];
+            $products[ $index ][ 'productImageThumbUri' ] = json_decode( unserialize( $this->FilesModel->getImageById( $product[ 'productImageId' ] )[ 'fileThumbnails' ] ) )->thumbnail->fileuri;
+        }
+
+        $this->View->products = $products;
 
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'products/product' );

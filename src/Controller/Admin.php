@@ -169,7 +169,10 @@ final class Admin extends AbstractController implements IndexController {
             case 'new':
                 $this->addNewProduct();
                 break;
-                
+            case 'delete':
+                $this->deleteProduct();
+                break;
+                            
             default:
                 break;
         }
@@ -179,6 +182,8 @@ final class Admin extends AbstractController implements IndexController {
     private function productsIndex() : void {
         $this->View->products = $this->ProductsModel->getAllProducts();
         
+        $this->View->addScript( new Script( 'ajax', '/assets/js/ajax.js' ) );
+
         $this->View->title = 'Admin - Products';
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'admin/products/index' );
@@ -207,6 +212,13 @@ final class Admin extends AbstractController implements IndexController {
         $this->View->getTemplatePart( 'admin/products/new' );
         $this->View->getTemplatePart( 'footer' );
 
+    }
+
+    private function deleteProduct() : void {
+        if ( empty( $_POST ) === FALSE ) {
+            $this->ProductsModel->deleteProduct();            
+        }
+        $this->redirect( '/admin/products' );
     }
 
 }
