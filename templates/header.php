@@ -45,6 +45,7 @@
                         </a>
                         <div class="header-link" id="header-cart-icon">
                             <img src="/assets/img/shopping-cart.svg" alt="">
+                            <span class="header-cart-amount <?php cartAmountActive() ?>"><?php cartAmount() ?></span>
                        </div>
                         <div class="header-cart">
                         </div>

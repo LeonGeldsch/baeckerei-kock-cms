@@ -78,6 +78,28 @@ body {
     background-color: var(--main-grey);
 }
 
+#header-cart-icon {
+    position: relative;
+}
+
+.header-cart-amount {
+    display: none;
+    position: absolute;
+    background-color: var(--main-red);
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    color: var(--main-white);
+    place-items: center;
+    top: -10px;
+    right: -5px;
+    font-size: 1rem;
+}
+
+.header-cart-amount.active {
+    display: grid;
+}
+
 .cart-modal-wrapper {
     display: none;
     position: fixed;

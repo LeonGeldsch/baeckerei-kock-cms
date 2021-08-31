@@ -14,6 +14,8 @@
 </div>
 <script>
 
+    var headerCartAmount = document.querySelector('.header-cart-amount');
+
     var allItems = document.querySelectorAll('.product-grid-item');
 
     var allProductNames = document.querySelectorAll('.item-name');
@@ -21,6 +23,7 @@
     var allAmountInputs = document.querySelectorAll('.item-amount-input');
 
     var allCartItems = document.querySelectorAll('.cart-items p');
+    var cart = document.querySelector('.cart-items');
 
     for (let i = 0; i < allItems.length; i++) {
         
@@ -33,13 +36,33 @@
     }
 
     function callbackFunction (data) {
-        console.log( JSON.parse( data ));
-        updateCart(data);
+        //console.log( JSON.parse( data ));
+        updateCart(JSON.parse(data));
     }
 
-    function updateCart(data) {
-        
+    function updateCart(items) {
+        cart.innerHTML = '';
+        let totalAmount = 0;
+        items = Object.entries(items);
+        console.log(items);
+        for (let i = 0; i < items.length; i++) {
+            totalAmount += items[i][1].itemAmount;
+
+            let newLine = document.createElement('p');
+            newLine.innerHTML = items[i][1].itemName + ': ' + items[i][1].itemAmount;
+            newLine.setAttribute('data-id', items[i][1].itemId);
+            cart.appendChild(newLine);
+        }
+        //console.log(totalAmount);
+        if (totalAmount > 0) {
+            headerCartAmount.innerHTML = totalAmount;
+            headerCartAmount.style.display = 'grid';
+        } else {
+            headerCartAmount.style.display = 'none';
+        }
     }
+
+
 
     // for Ajax call to add to cart and display cart
 

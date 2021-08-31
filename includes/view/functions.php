@@ -15,6 +15,26 @@ function title() : void {
     echo View::$data[ 'title' ] ?? 'Default Title';
 }
 
+function cartAmount() : void {
+    $cartItems = Session::get( 'cart' );
+    $amount = 0;
+    reset( $cartItems );
+    for ($i=0; $i < count( $cartItems ); $i++) {
+
+        $amount += current( $cartItems )[ 'itemAmount' ];
+        next( $cartItems );
+    }
+    echo $amount;
+}
+
+function cartAmountActive() : void {
+    $cartItems = Session::get( 'cart' );
+    if ( count( $cartItems ) ?? 0 > 0 ) {
+        echo 'active';
+    }
+}
+
+
 function navigation_link( string $target, string $title, string $classname = 'navigation__anchor' ) : void {
     
     $targetArray = array_filter( explode( '/', $target ) );
@@ -42,7 +62,7 @@ function cart() : void {
     
     if( count( $items ) > 0 ) {
         foreach( $items as $index => $item ) {
-            echo "<p data-id=" . $item[ 'itemId' ] . ">Product: " . $item[ 'itemName' ] . " | Amount: " . $item[ 'itemAmount' ] . "</p>";
+            echo "<p data-id=" . $item[ 'itemId' ] . ">" . $item[ 'itemName' ] . ": " . $item[ 'itemAmount' ] . "</p>";
         }
     } else {
         echo "cart is empty!";
