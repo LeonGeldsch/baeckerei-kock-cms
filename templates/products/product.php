@@ -36,7 +36,6 @@
     }
 
     function callbackFunction (data) {
-        //console.log( JSON.parse( data ));
         updateCart(JSON.parse(data));
     }
 
@@ -44,16 +43,13 @@
         cart.innerHTML = '';
         let totalAmount = 0;
         items = Object.entries(items);
-        console.log(items);
         for (let i = 0; i < items.length; i++) {
-            totalAmount += items[i][1].itemAmount;
-
+            totalAmount += parseInt( items[i][1].itemAmount );
             let newLine = document.createElement('p');
             newLine.innerHTML = items[i][1].itemName + ': ' + items[i][1].itemAmount;
             newLine.setAttribute('data-id', items[i][1].itemId);
             cart.appendChild(newLine);
         }
-        //console.log(totalAmount);
         if (totalAmount > 0) {
             headerCartAmount.innerHTML = totalAmount;
             headerCartAmount.style.display = 'grid';
