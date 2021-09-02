@@ -1,0 +1,77 @@
+.user-wrapper {
+    display: flex;
+}
+
+.user-heading {
+    padding: 20px;
+    border-bottom: 1px solid var(--main-light-grey);
+    width: 100%;
+}
+
+.user-nav {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.user-nav-link {
+    padding: 10px;
+}
+
+.user-orders {
+    width: 100%;
+}
+
+.user-orders-list {
+    list-style: none;
+}
+
+.user-orders-filter {
+    display: flex;
+    background-color: var(--main-white);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.user-orders-filter a {
+    display: block;
+    width: 16.666666%;
+    text-decoration: none;
+    color: var(--main-black);
+}
+
+.user-order-info {
+    display: flex;
+    background-color: var(--main-white);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    margin-bottom: 0;
+}
+
+.user-order-info p {
+    width: 16.666666%;
+}
+
+.user-order-items {
+    background-color: var(--main-white);
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+    margin: 0 40px 20px 40px;
+    border-top: 1px solid var(--main-light-grey);
+
+
+}
+
+.user-order-filter {
+    display: flex;
+}
+
+.user-order-filter p {
+    width: 23%;
+}
+
+.user-order-item {
+    display: flex;
+}

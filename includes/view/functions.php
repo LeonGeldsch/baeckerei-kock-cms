@@ -56,6 +56,19 @@ function navigation_link( string $target, string $title, string $classname = 'na
 
 
 
+function topLink( string $title ) : void {
+    $uriArray = array_filter( explode( '/', $_SERVER[ 'REQUEST_URI' ] ) );
+    $secondUri = $uriArray [ 1 ] ?? " ";
+
+    if ( $secondUri === $title ) {
+        echo '#A30000';
+    } else {
+        echo '#000';
+    }
+}
+
+
+
 function cart() : void {
 
     $items = Session::get( 'cart' ) ?? [];

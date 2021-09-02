@@ -44,6 +44,17 @@ final class Products extends AbstractModel {
         return $statement->fetchAll( \PDO::FETCH_ASSOC )[0]['productName'] ?? null;
     }
 
+
+    public function getProductById( ?int $productId ) : ?array {
+        $query = 'SELECT * FROM products WHERE productId = :productId;';
+        $statement = $this->Database->prepare( $query );
+        $statement->bindParam( ':productId', $productId );
+        $statement->execute();
+
+        return $statement->fetchAll( \PDO::FETCH_ASSOC )[0] ?? null;
+    }
+
+
     public function productExists( ?int $productId ) : ?bool {
         $query = 'SELECT * FROM products WHERE productId = :productId;';
         $statement = $this->Database->prepare( $query );

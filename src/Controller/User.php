@@ -131,11 +131,19 @@ final class User extends AbstractController implements IndexController {
 
         foreach ($userOrders as $orderIndex => $order) {
             
+            $totalPrice = 0;
+            $totalAmount = 0;
+
             $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
             foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
-                $orderItem[ 'orderItemProductName' ] = $this->ProductsModel->getProductNameById( $orderItem[ 'orderItemProductId' ] );
+                $orderItem[ 'orderItemProduct' ] = $this->ProductsModel->getProductById( $orderItem[ 'orderItemProductId' ] );
                 $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+                $totalAmount += $orderItem[ 'orderItemAmount' ];
+                $orderItemPrice = $this->ProductsModel->getProductById( $orderItem[ 'orderItemProductId' ] )[ 'productPrice' ];
+                $totalPrice += $orderItem[ 'orderItemAmount' ] * $orderItemPrice;
             }
+            $order[ 'orderAmount' ] = $totalAmount;
+            $order[ 'orderPrice' ] = $totalPrice;
             $userOrders[ $orderIndex ] = $order;
         }
         /*
@@ -143,7 +151,9 @@ final class User extends AbstractController implements IndexController {
         print_r($userOrders);
         echo "</pre>";
         */
-        $this->View->title = "Orders";
+        $this->View->title = "My orders";
+
+        $this->View->addStylesheet( new Stylesheet( 'user', '/assets/css/user.css', '0.1.0' ) );
 
         $this->View->orders = $userOrders;
 

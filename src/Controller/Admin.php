@@ -161,7 +161,6 @@ final class Admin extends AbstractController implements IndexController {
 
     public function products( string $action = 'index' ) : void {
 
-
         switch ( $action ) {
             case 'index':
                 $this->productsIndex();
@@ -216,7 +215,7 @@ final class Admin extends AbstractController implements IndexController {
 
     private function deleteProduct() : void {
         if ( empty( $_POST ) === FALSE ) {
-            $this->ProductsModel->deleteProduct();            
+            $this->ProductsModel->deleteProduct();
         }
         $this->redirect( '/admin/products' );
     }
