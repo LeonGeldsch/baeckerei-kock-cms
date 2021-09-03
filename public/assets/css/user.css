@@ -55,13 +55,18 @@
 }
 
 .user-order-items {
+    display: none;
     background-color: var(--main-white);
     border-radius: 0 0 5px 5px;
     padding: 20px;
+    transition: max-height 1s;
     margin: 0 40px 20px 40px;
     border-top: 1px solid var(--main-light-grey);
+    overflow: hidden;
+}
 
-
+.user-order-items.active {
+    display: block;
 }
 
 .user-order-filter {
@@ -74,4 +79,19 @@
 
 .user-order-item {
     display: flex;
+    border-top: 1px solid var(--main-light-grey);
+    padding: 10px 0;
+}
+
+.user-order-item p {
+    width: 23%;
+}
+
+.order-expand-button {
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.order-expand-button.active {
+    transform: rotate(90deg);
 }

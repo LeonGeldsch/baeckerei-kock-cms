@@ -1,9 +1,9 @@
 <h2 class="user-heading">My profile</h2>
 <div class="user-wrapper">
     <div class="user-nav">
-        <a href="/orders" class="user-nav-link">Orders</a>
-        <a href="/edit" class="user-nav-link">Edit profile</a>
-        <a href="notifications" class="user-nav-link">Notifications</a>
+        <a href="/user/orders" class="user-nav-link">Orders</a>
+        <a href="/user/edit" class="user-nav-link">Edit profile</a>
+        <a href="/user/notifications" class="user-nav-link">Notifications</a>
     </div>
     <div class="user-orders">
         <div class="user-orders-filter">
@@ -23,6 +23,7 @@
                         <p><?= $order[ 'orderAmount' ] ?></p>
                         <p><?= $order[ 'orderPrice' ] ?>€</p>
                         <p><?= $order[ 'orderStatus' ] ?></p>
+                        <img src="/assets/img/chevrons-right.svg" alt="" class="order-expand-button">
                     </div>
                     <ul class="user-order-items">
                         <div class="user-order-filter">
@@ -34,9 +35,9 @@
                         <?php foreach( $order[ 'orderItems' ] as $orderItem ) : ?>
                             <li class="user-order-item">
                                 <p><?= $orderItem[ 'orderItemProduct' ][ 'productName' ] ?></p>
-                                <p><?= $orderItem[ 'orderItemProduct' ][ 'productPrice' ] ?></p>
+                                <p><?= $orderItem[ 'orderItemProduct' ][ 'productPrice' ] ?>€</p>
                                 <p><?= $orderItem[ 'orderItemAmount' ] ?></p>
-                                <p><?= $orderItem[ 'orderItemPrice' ] ?></p>
+                                <p><?= $orderItem[ 'orderItemPrice' ] ?>€</p>
                             </li>
                         <?php endforeach; ?>
                     </ul>

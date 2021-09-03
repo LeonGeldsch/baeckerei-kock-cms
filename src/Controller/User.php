@@ -137,10 +137,10 @@ final class User extends AbstractController implements IndexController {
             $order[ 'orderItems' ] = $this->OrderItemsModel->getOrderItemsByOrderId( $order[ 'orderId' ] );
             foreach ($order[ 'orderItems' ] as $itemIndex => $orderItem) {
                 $orderItem[ 'orderItemProduct' ] = $this->ProductsModel->getProductById( $orderItem[ 'orderItemProductId' ] );
-                $order[ 'orderItems' ][ $itemIndex] = $orderItem;
+                $orderItem[ 'orderItemPrice' ] = $orderItem[ 'orderItemProduct' ][ 'productPrice' ] * $orderItem[ 'orderItemAmount' ];
                 $totalAmount += $orderItem[ 'orderItemAmount' ];
-                $orderItemPrice = $this->ProductsModel->getProductById( $orderItem[ 'orderItemProductId' ] )[ 'productPrice' ];
-                $totalPrice += $orderItem[ 'orderItemAmount' ] * $orderItemPrice;
+                $totalPrice += $orderItem[ 'orderItemAmount' ] * $orderItem[ 'orderItemProduct' ][ 'productPrice' ];
+                $order[ 'orderItems' ][ $itemIndex] = $orderItem;
             }
             $order[ 'orderAmount' ] = $totalAmount;
             $order[ 'orderPrice' ] = $totalPrice;
@@ -154,6 +154,7 @@ final class User extends AbstractController implements IndexController {
         $this->View->title = "My orders";
 
         $this->View->addStylesheet( new Stylesheet( 'user', '/assets/css/user.css', '0.1.0' ) );
+        $this->View->addScript( new Script( 'user', '/assets/js/user.js', '0.1.0' ) );
 
         $this->View->orders = $userOrders;
 

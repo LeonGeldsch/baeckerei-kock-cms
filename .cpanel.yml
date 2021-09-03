@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/leonzmed/github/baeckerei-kock-cms/
+    - /bin/cp public $DEPLOYPATH
+    - /bin/cp src $DEPLOYPATH
+    - /bin/cp templates $DEPLOYPATH
+    - /bin/cp includes $DEPLOYPATH
+    - /bin/cp config.php $DEPLOYPATH
