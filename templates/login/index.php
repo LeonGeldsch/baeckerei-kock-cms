@@ -1,6 +1,6 @@
 <form class="form" method="POST">
     <div class="form__row">
-        <h1>Login</h1>
+        <h1 class="form-heading">Login</h1>
         <?php
             switch( $_GET[ 'status' ] ?? NULL ) {
                 case 'required':
@@ -12,13 +12,18 @@
                 case 'register':
                     echo "<h2>Succesfully registered</h2>";
                     break;
-                default:
+                case 'insufficient_permission':
+                    echo "<h2>No permission to access this area</h2>";
+                    break;
+                    default:
                     echo "<h2>Login and have fun!</h2>";
             }
         ?>
     </div>
-    <div class="form__row">
-        <label for="username" class="form__label">Username</label>
+    <div class="standard-input">
+        <input id="username" type="text" name="username" placeholder=" ">
+        <label for="test">Username</label>
+        <span class="underline"></span>
         <?php
             if ( isset( $this->errors ) && isset( $this->errors[ 'username' ] ) ) {
                 foreach ( $this->errors[ 'username' ] as $error_message ) {
@@ -26,10 +31,11 @@
                 }
             }
         ?>
-        <input id="username" class="form__input form__input--text" type="text" name="username">
     </div>
-    <div class="form__row">
-        <label for="password" class="form__label">Password</label>
+    <div class="standard-input">
+        <input id="password" type="password" name="password" placeholder=" ">
+        <label for="test">Password</label>
+        <span class="underline"></span>
         <?php
             if ( isset( $this->errors ) && isset( $this->errors[ 'password' ] ) ) {
                 foreach ( $this->errors[ 'password' ] as $error_message ) {
@@ -37,10 +43,9 @@
                 }
             }
         ?>
-        <input id="password" class="form__input form__input--password" type="password" name="password">
     </div>
-    <div class="form__row">
-        <input id="submit" class="form__input form__input--submit" type="submit" name="login_user" value="Login">
-        <a href="/register">Register</a>
+    <div class="form-buttons">
+        <a href="/register" class="form-button">Register</a>
+        <input id="submit" class="form-submit-button form-button" type="submit" name="login_user" value="Login">
     </div>
 </form>

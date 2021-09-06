@@ -1,0 +1,23 @@
+.admin-panel {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--main-white);
+}
+
+.admin-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+.products-panel {
+    background-image: url('../img/slideshow/pic1.png');
+}
+
+.orders-panel {
+    background-image: url('../img/kock_tuete.jpg');
+}

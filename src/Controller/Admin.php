@@ -48,6 +48,7 @@ final class Admin extends AbstractController implements IndexController {
      */
     public function index() : void {
 
+        $this->View->addStylesheet( new Stylesheet( 'admin', '/assets/css/admin.css' ) );
 
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'admin/index' );
@@ -124,6 +125,7 @@ final class Admin extends AbstractController implements IndexController {
             $this->View->title = 'Admin - Orders';
         }
         
+        $this->View->addStylesheet( new Stylesheet( 'admin', '/assets/css/admin.css' ) );
         $this->View->addScript( new Script( 'ajax', '/assets/js/ajax.js' ) );
         $this->View->addScript( new Script( 'admin', '/assets/js/admin_orders.js' ) );
 
@@ -182,6 +184,8 @@ final class Admin extends AbstractController implements IndexController {
         $this->View->products = $this->ProductsModel->getAllProducts();
         
         $this->View->addScript( new Script( 'ajax', '/assets/js/ajax.js' ) );
+        $this->View->addStylesheet( new Stylesheet( 'admin', '/assets/css/admin.css' ) );
+
 
         $this->View->title = 'Admin - Products';
         $this->View->getTemplatePart( 'header' );

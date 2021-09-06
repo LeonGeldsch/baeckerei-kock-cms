@@ -154,6 +154,7 @@ final class User extends AbstractController implements IndexController {
         $this->View->title = "My orders";
 
         $this->View->addStylesheet( new Stylesheet( 'user', '/assets/css/user.css', '0.1.0' ) );
+        $this->View->addScript( new Script( 'ajax', '/assets/js/ajax.js', '0.1.0' ) );
         $this->View->addScript( new Script( 'user', '/assets/js/user.js', '0.1.0' ) );
 
         $this->View->orders = $userOrders;
@@ -161,6 +162,18 @@ final class User extends AbstractController implements IndexController {
         $this->View->getTemplatePart( 'header' );
         $this->View->getTemplatePart( 'user/orders' );
         $this->View->getTemplatePart( 'footer' );
+    }
+
+
+    public function removeOrder() : void {
+
+        $orderId = filter_input( INPUT_POST, 'orderId' );
+
+        $orderSuccess = $this->OrdersModel->removeOrder( $orderId );
+        $itemsSuccess = $this->OrderItemsModel->removeOrderItemsByOrderId( $orderId );
+
+        echo ( $orderSuccess && $itemsSuccess );
+
     }
 
 }

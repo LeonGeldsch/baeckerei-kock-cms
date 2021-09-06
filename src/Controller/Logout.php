@@ -28,6 +28,7 @@ final class Logout extends AbstractController implements IndexController {
         Session::remove( 'login_id' );
         Session::remove( 'login_username' );
         Session::remove( 'login_timestamp' );
+        Session::remove( 'user_level' );
 
         $this->redirect( '/login?status=logout' );
     }

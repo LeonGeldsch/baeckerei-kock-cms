@@ -25,6 +25,18 @@
   
 ## Installation
 ```shell
-$ cd sae-wbd0321-5100-cms
+$ cd baeckerei-kock-cms
 $ composer update
 ```
+
+## Sources
+- icons from feathericons https://feathericons.com/
+- ajax from stackoverflow https://stackoverflow.com/questions/8567114/how-to-make-an-ajax-call-without-jquery/18078705#18078705
+- slideshow: https://codepen.io/cconceicao/pen/PBQawy
+
+## Admin Account
+username: LeonGeldsch
+password: Y73QXMJu4KLzk2cß
+
+## Admin Page
+- http://localhost:8080/admin

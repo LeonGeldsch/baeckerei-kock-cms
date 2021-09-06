@@ -50,8 +50,21 @@
     margin-bottom: 0;
 }
 
-.user-order-info p {
-    width: 16.666666%;
+.user-order-info * {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.user-order-info.hidden {
+    animation: fade-out .5s;
+    animation-fill-mode: forwards;
+}
+
+.user-order-info img {
+    height: 1.5rem;
+    width: auto;
+    cursor: pointer;
 }
 
 .user-order-items {
@@ -59,7 +72,6 @@
     background-color: var(--main-white);
     border-radius: 0 0 5px 5px;
     padding: 20px;
-    transition: max-height 1s;
     margin: 0 40px 20px 40px;
     border-top: 1px solid var(--main-light-grey);
     overflow: hidden;
@@ -71,6 +83,7 @@
 
 .user-order-filter {
     display: flex;
+    margin-bottom: 10px;
 }
 
 .user-order-filter p {
@@ -94,4 +107,33 @@
 
 .order-expand-button.active {
     transform: rotate(90deg);
+}
+
+.user-nav {
+    border-right: 1px solid var(--main-light-grey);
+}
+
+.user-nav-link {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    color: var(--main-black);
+    text-decoration: none;
+    transition: all .2s;
+}
+
+.user-nav-link:hover {
+    color: var(--main-black);
+    background-color: var(--main-yellow);
+    border-radius: 10px;
+}
+
+
+
+
+@keyframes fade-out {
+    0% { opacity: 100%; }
+    90% { opacity: 0; }
+    100% { display: none; }
 }
