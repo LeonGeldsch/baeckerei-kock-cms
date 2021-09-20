@@ -9,31 +9,31 @@
                         <h4>Opening Times</h4>
                         <table>
                             <tr>
-                                <td>Montag</td>
+                                <td>Monday</td>
                                 <td>06:00 - 16:30</td>
                             </tr>
                             <tr>
-                                <td>Dienstag</td>
+                                <td>Tuesday</td>
                                 <td>06:00 - 16:30</td>
                             </tr>
                             <tr>
-                                <td>Mittwoch</td>
+                                <td>Wednesday</td>
                                 <td>06:00 - 16:30</td>
                             </tr>
                             <tr>
-                                <td>Donnerstag</td>
+                                <td>Thursday</td>
                                 <td>06:00 - 16:30</td>
                             </tr>
                             <tr>
-                                <td>Freitag</td>
+                                <td>Friday</td>
                                 <td>06:00 - 16:30</td>
                             </tr>
                             <tr>
-                                <td>Samstag</td>
+                                <td>Saturday</td>
                                 <td>05:30 - 12:30</td>
                             </tr>
                             <tr>
-                                <td>Sonntag</td>
+                                <td>Sunday</td>
                                 <td>06:00 - 11:00</td>
                             </tr>
                         </table>
@@ -44,7 +44,7 @@
                         <table>
                             <tr>
                                 <td>Email</td>
-                                <td>info@baeckerei-kock.de</td>
+                                <td><a href="mailto:info@baeckerei-kock.de" style="color: var(--main-light-grey);">info@baeckerei-kock.de</a></td>
                             </tr>
                             <tr>
                                 <td>Phone</td>
